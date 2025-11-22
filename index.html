@@ -5,49 +5,14 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Yash Shah</title>
   <style>
-    body {
-      margin: 0;
-      font-family: "Helvetica Neue", Arial, sans-serif;
-      background: #fff;
-      color: #222;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
-    .topbar {
-      background: #f6f6f6;
-      border-bottom: 1px solid #e6e6e6;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 14px 28px;
-      gap: 24px;
-      width: 100%;
-    }
-    .topbar a {
-      color: #444;
-      text-decoration: none;
-      font-weight: 600;
-    }
-    .topbar a:hover {
-      color: #000;
-    }
-    .photo {
-      margin-top: 40px;
-      width: 8cm;
-      height: 8cm;
-      overflow: hidden;
-      border-radius: 8px;
-      border: 2px solid #ddd;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
-    .photo img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
+    body { margin:0; font-family: "Helvetica Neue", Arial, sans-serif; background:#fff; color:#222;
+           display:flex; flex-direction:column; align-items:center; }
+    .topbar { background:#f6f6f6; border-bottom:1px solid #e6e6e6; display:flex; align-items:center;
+              justify-content:center; padding:14px 28px; gap:24px; width:100%; }
+    .topbar a { color:#444; text-decoration:none; font-weight:600; }
+    .photo { margin-top:40px; width:8cm; height:8cm; overflow:hidden; border-radius:8px;
+             border:2px solid #ddd; display:flex; justify-content:center; align-items:center; }
+    .photo img { width:100%; height:100%; object-fit:cover; display:block; }
   </style>
 </head>
 <body>
@@ -60,6 +25,7 @@
   </div>
 
   <div class="photo">
+    <!-- file in same repo/folder named photo.png -->
     <img src="photo.png" alt="Profile photo">
   </div>
 </body>
