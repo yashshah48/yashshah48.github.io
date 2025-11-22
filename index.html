@@ -25,7 +25,7 @@
       box-sizing: border-box;
     }
     .logo img {
-      height: 32px; /* keeps logo visually balanced without enlarging bar */
+      height: 32px;
       width: auto;
       display: block;
     }
@@ -33,15 +33,50 @@
       display: flex;
       gap: 24px;
       align-items: center;
+      position: relative;
     }
     .nav-links a {
       color: #444;
       text-decoration: none;
       font-weight: 600;
+      position: relative;
     }
     .nav-links a:hover {
       color: #000;
     }
+
+    /* Dropdown menu */
+    .dropdown {
+      position: relative;
+      display: inline-block;
+    }
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      background-color: #fff;
+      min-width: 140px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      z-index: 1;
+    }
+    .dropdown-content a {
+      color: #444;
+      padding: 10px 14px;
+      text-decoration: none;
+      display: block;
+      font-weight: 500;
+    }
+    .dropdown-content a:hover {
+      background-color: #f0f0f0;
+      color: #000;
+    }
+    .dropdown:hover .dropdown-content {
+      display: block;
+    }
+
     .photo {
       margin-top: 40px;
       max-width: 5cm;
@@ -62,8 +97,15 @@
     <div class="logo">
       <img src="duke_university-logo_brandlogos.net_hahhm-512x178.png" alt="Duke University logo">
     </div>
+
     <div class="nav-links">
-      <a href="#">Projects</a>
+      <div class="dropdown">
+        <a href="#">Projects ▾</a>
+        <div class="dropdown-content">
+          <a href="#">Life Cycle Assessment</a>
+          <a href="#">Material Science</a>
+        </div>
+      </div>
       <a href="#">Publications</a>
       <a href="#">Talks</a>
       <a href="#">CV</a>
