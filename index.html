@@ -3,296 +3,41 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Yash Shah — Environmental Engineering (Duke University)</title>
-  <meta name="description" content="Yash Shah — PhD candidate in Environmental Engineering, Duke University. Research: carbon nitride materials, sustainability, LCA, photocatalysis." />
+  <title>Yash Shah</title>
   <style>
-    /* Clean, screenshot-like layout */
-    *{box-sizing:border-box}
-    html,body{height:100%}
-    body{
-      margin:0;
+    body {
+      margin: 0;
       font-family: "Helvetica Neue", Arial, sans-serif;
-      color:#222;
-      background:#fff;
-      -webkit-font-smoothing:antialiased;
-      -moz-osx-font-smoothing:grayscale;
-      line-height:1.45;
-      font-size:16px;
+      background: #fff;
+      color: #222;
     }
-
-    /* Top navigation */
-    .topbar{
-      background:#f6f6f6;
-      border-bottom:1px solid #e6e6e6;
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      padding:14px 28px;
-      gap:12px;
-      position:sticky;
-      top:0;
-      z-index:10;
+    .topbar {
+      background: #f6f6f6;
+      border-bottom: 1px solid #e6e6e6;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 14px 28px;
+      gap: 24px;
     }
-    .nav-left{display:flex;gap:18px;align-items:center;color:#666;font-weight:600}
-    .nav-left a{color:inherit;text-decoration:none;padding:6px 0}
-    .nav-left a.active{color:#000;font-weight:700}
-    .nav-right{display:flex;gap:14px;align-items:center;color:#777}
-
-    /* Page container */
-    .container{
-      max-width:1100px;
-      margin:28px auto;
-      padding:0 28px 80px;
+    .topbar a {
+      color: #444;
+      text-decoration: none;
+      font-weight: 600;
     }
-
-    /* Grid: left info card & right portrait */
-    .top-grid{
-      display:grid;
-      grid-template-columns: 420px 240px;
-      gap:28px;
-      align-items:start;
+    .topbar a:hover {
+      color: #000;
     }
-    @media(max-width:900px){
-      .top-grid{grid-template-columns:1fr; gap:18px}
-    }
-
-    /* Left info card */
-    .info-card{
-      border:2px solid #ddd;
-      border-radius:8px;
-      padding:22px;
-      background:#fff;
-    }
-    .info-card h1{
-      margin:2px 0 8px;
-      font-size:34px;
-      line-height:1;
-      font-weight:700;
-      color:#222;
-    }
-    .info-card .role{
-      margin:6px 0 8px;
-      color:#444;
-      font-size:18px;
-      font-weight:600;
-    }
-    .info-card .affil{
-      color:#333;
-      font-size:17px;
-      margin-bottom:14px;
-      line-height:1.35;
-    }
-    .cv-btn{
-      display:inline-flex;
-      align-items:center;
-      gap:10px;
-      border-radius:6px;
-      padding:10px 16px;
-      background:#efefef;
-      color:#111;
-      text-decoration:none;
-      border:1px solid #d1d1d1;
-      font-weight:700;
-      box-shadow: inset 0 -1px 0 rgba(0,0,0,0.03);
-    }
-    .cv-btn svg{width:16px;height:16px;fill:#333}
-
-    /* Portrait box with warm frame similar to screenshot */
-    .portrait-box{
-      border-radius:8px;
-      padding:8px;
-      background:linear-gradient(180deg,#ffd77a,#ffc24a);
-      display:flex;
-      justify-content:center;
-      align-items:center;
-      border:1px solid #e2b94c;
-    }
-    .portrait-box img{
-      display:block;
-      width:100%;
-      height:auto;
-      max-width:200px;
-      border-radius:6px;
-      border:6px solid #fff;
-      box-shadow:0 2px 0 rgba(0,0,0,0.06);
-    }
-
-    /* Large intro paragraph */
-    .intro{
-      margin-top:28px;
-      font-size:20px;
-      color:#222;
-      max-width:980px;
-      line-height:1.6;
-    }
-    .intro p{margin:0 0 18px}
-
-    /* Sections with icon column */
-    .section{
-      margin-top:34px;
-      display:flex;
-      gap:18px;
-      align-items:flex-start;
-    }
-    .section .left{
-      width:48px;
-      color:#333;
-      font-size:20px;
-      display:flex;
-      justify-content:flex-end;
-      padding-top:4px;
-    }
-    .section .content{
-      flex:1;
-    }
-    .section h2{
-      margin:0 0 10px;
-      font-size:26px;
-      font-weight:700;
-      display:flex;
-      align-items:center;
-      gap:10px;
-    }
-    .news-list{
-      margin:0;
-      padding-left:20px;
-      color:#333;
-    }
-    .news-list li{margin:8px 0; font-size:15px}
-
-    /* Contact panel */
-    .contact{
-      border-left:6px solid #eee;
-      background:#fff;
-      padding:18px;
-      border-radius:4px;
-      margin-top:8px;
-    }
-    .contact .email{font-weight:700;margin-top:10px}
-
-    /* Publications mini-list */
-    .pub-list{margin:0;padding-left:20px}
-    .pub-list li{margin:8px 0;font-size:15px}
-
-    footer{margin-top:44px;color:#777;font-size:14px}
   </style>
 </head>
 <body>
-  <div class="topbar" role="banner">
-    <div class="nav-left">
-      <a href="#" class="active">Yash Shah</a>
-      <a href="#">Bio</a>
-      <a href="#">Publications</a>
-      <a href="#">Research</a>
-      <a href="#">Teaching</a>
-      <a href="#">Contact</a>
-    </div>
-    <div class="nav-right" aria-hidden="false">
-      <a href="mailto:shah.yash@duke.edu" title="Email">✉️</a>
-      <a href="https://linkedin.com/in/yash-uday-shah" target="_blank" rel="noopener">in</a>
-      <span style="color:#999;font-size:14px">+1-412-785-4940</span>
-    </div>
+  <div class="topbar">
+    <a href="#">Projects</a>
+    <a href="#">Publications</a>
+    <a href="#">Talks</a>
+    <a href="#">CV</a>
+    <a href="#">Contact</a>
   </div>
-
-  <main class="container" role="main">
-    <div class="top-grid">
-      <!-- Left card -->
-      <aside class="info-card" aria-labelledby="name">
-        <h1 id="name">Yash Shah</h1>
-        <div class="role">PhD Candidate — Environmental Engineering</div>
-        <div class="affil">Duke University — Focus: Material Chemistry & Sustainability</div>
-
-        <a class="cv-btn" href="/mnt/data/CV__Shah.pdf" download>
-          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19.35 10.04A7 7 0 0 0 5 9a5.5 5.5 0 0 0 .1 11h13.25A3.5 3.5 0 0 0 22 16.5c0-2.22-1.78-4.02-2.65-6.46zM12 12v6m-3-3 3 3 3-3" stroke="#333" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg>
-          Download CV
-        </a>
-
-        <div style="margin-top:14px;color:#444;font-size:15px">
-          <div><strong>Email:</strong> <a href="mailto:shah.yash@duke.edu">shah.yash@duke.edu</a></div>
-          <div style="margin-top:6px"><strong>LinkedIn:</strong> <a href="https://linkedin.com/in/yash-uday-shah" target="_blank" rel="noopener">linkedin.com/in/yash-uday-shah</a></div>
-          <div style="margin-top:6px"><strong>Phone:</strong> +1-412-785-4940</div>
-        </div>
-      </aside>
-
-      <!-- Right portrait (replace src with actual headshot if you have one) -->
-      <div class="portrait-box" aria-hidden="false">
-        <img src="https://via.placeholder.com/200x260?text=Photo" alt="Portrait — Yash Shah">
-      </div>
-    </div>
-
-    <!-- Intro paragraph pulled from CV (summary) -->
-    <section class="intro" aria-labelledby="intro-heading">
-      <p id="intro-heading">
-        I am a PhD candidate in Environmental Engineering at Duke University studying structure–property–sustainability relationships for engineered nanomaterials with applications in antimicrobial technologies, environmental remediation, and energy. My work integrates material design and advanced characterization (XPS, XRD, TEM), experimental reactor design, and life cycle assessment (SimaPro) to develop sustainable, high-performing carbon nitride and carbon nanoparticle materials. I lead LCA studies, develop novel material selection frameworks, and collaborate with industry partners on sustainability screening and decarbonization pathways.
-      </p>
-    </section>
-
-    <!-- Research highlights -->
-    <section class="section" aria-labelledby="research-heading">
-      <div class="left" aria-hidden="true">
-        <svg width="34" height="34" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 2v20" stroke="#444" stroke-width="1.2" stroke-linecap="round"/><circle cx="12" cy="7" r="2" stroke="#444" stroke-width="1.2"/></svg>
-      </div>
-      <div class="content">
-        <h2 id="research-heading">Selected research</h2>
-        <ul class="news-list">
-          <li><strong>Tuning reactive species production of graphitic carbon nitride</strong> — oxygen doping strategies for enhanced visible-light activity (Duke University).</li>
-          <li><strong>Respiratory pathogen inactivation in drinking water</strong> — reservoir reactor achieving &gt;99.99% photocatalytic inactivation of <em>P. aeruginosa</em>.</li>
-          <li><strong>Life cycle assessment for scaled-up nanoparticle production</strong> — LCA hotspots and decarbonization for carbon nanoparticle and CN material processes (industry collaborations).</li>
-        </ul>
-      </div>
-    </section>
-
-    <!-- Publications -->
-    <section class="section" aria-labelledby="pub-heading">
-      <div class="left" aria-hidden="true">
-        <svg width="34" height="34" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="3" y="5" width="18" height="14" stroke="#444" stroke-width="1.2" rx="1.5"/><path d="M7 9h6" stroke="#444" stroke-width="1.2"/><path d="M7 12h10" stroke="#444" stroke-width="1.2"/></svg>
-      </div>
-      <div class="content">
-        <h2 id="pub-heading">Selected publications</h2>
-        <ul class="pub-list">
-          <li>Shah, Y., & Gilbertson, L. M. (2025). <em>Tuning reactive species production of graphitic carbon nitride via oxygen doping</em>. ACS Sustainable Chemistry & Engineering.</li>
-          <li>Modi, S., Shah, Y., Okonkwo, O., Gilbertson, L. M., & Biswas, P. (2025). <em>Toward Sustainable Scaled-Up Manufacturing of Lignin-Derived Carbon Nanoparticles</em>. ACS Environ. Sci. & Technol.</li>
-          <li>Shah, Y., & Gilbertson, L. M. (2024). <em>Balancing functional properties and environmental impact of graphitic carbon nitride</em>. RSC Environmental Science: Nano, 11(1), 78–90.</li>
-        </ul>
-        <div style="margin-top:10px"><a href="/mnt/data/CV__Shah.pdf" class="cv-btn" download>Full CV (PDF)</a></div>
-      </div>
-    </section>
-
-    <!-- Skills & methods -->
-    <section class="section" aria-labelledby="skills-heading">
-      <div class="left" aria-hidden="true">
-        <svg width="34" height="34" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M3 12h18" stroke="#444" stroke-width="1.2"/></svg>
-      </div>
-      <div class="content">
-        <h2 id="skills-heading">Skills & methods</h2>
-        <p style="margin:0 0 8px">Material characterization (XPS, XRD, TEM, BET), nanomaterial synthesis, ROS assays, reactor design, microbiology, LCA (SimaPro, ecoinvent/USLCI), and data analysis (OriginLab, Minitab).</p>
-      </div>
-    </section>
-
-    <!-- Contact -->
-    <section class="section" aria-labelledby="contact-heading">
-      <div class="left" aria-hidden="true">
-        <svg width="34" height="34" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="3" y="6" width="18" height="12" stroke="#444" stroke-width="1.2" rx="1.5"/><path d="M3 8.5h18" stroke="#444" stroke-width="1.2" stroke-linecap="round"/></svg>
-      </div>
-      <div class="content">
-        <h2 id="contact-heading">Contact</h2>
-        <div class="contact" role="region" aria-label="Contact information">
-          <div><strong>Email:</strong> <a href="mailto:shah.yash@duke.edu">shah.yash@duke.edu</a></div>
-          <div style="margin-top:8px"><strong>Phone:</strong> +1-412-785-4940</div>
-          <div style="margin-top:8px"><strong>LinkedIn:</strong> <a href="https://linkedin.com/in/yash-uday-shah" target="_blank" rel="noopener">linkedin.com/in/yash-uday-shah</a></div>
-        </div>
-      </div>
-    </section>
-
-    <footer>
-      © <span id="year"></span> Yash Shah — PhD Candidate, Duke University
-      <div style="font-size:12px;color:#999;margin-top:6px"></div>
-    </footer>
-  </main>
-
-  <script>
-    // set footer year
-    document.getElementById('year').textContent = new Date().getFullYear();
-  </script>
 </body>
 </html>
+
