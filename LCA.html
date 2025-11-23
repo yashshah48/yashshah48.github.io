@@ -1,0 +1,164 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Yash Shah — LCA Publications</title>
+  <style>
+    :root{
+      --bar-bg:#f6f6f6;
+      --text:#222;
+      --muted:#444;
+      --duke-navy:#0033a0;
+      --max-width:1100px;
+      --photo-w:5.2cm;
+      --gap:48px;
+    }
+    body{
+      margin:0;
+      font-family:"Helvetica Neue", Arial, sans-serif;
+      color:var(--text);
+      background:#fff;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+    }
+    .topbar{ width:100%; background:var(--bar-bg); border-bottom:1px solid #e6e6e6; }
+    .topbar-inner{
+      max-width:var(--max-width); width:100%; margin:0 auto; padding:12px 20px; box-sizing:border-box;
+      display:flex; align-items:center; justify-content:space-between; gap:12px;
+    }
+    .brand { display:flex; align-items:center; gap:12px; cursor:pointer; }
+    .logo img { height:32px; width:auto; display:block; }
+    .site-title { font-weight:700; color:var(--text); }
+    nav a { color:var(--muted); text-decoration:none; font-weight:600; margin-left:14px; }
+    nav a:hover, nav a:focus { color:var(--duke-navy); }
+
+    main{ max-width:var(--max-width); margin:30px auto; padding:0 20px 80px; box-sizing:border-box; }
+    .hero{ display:flex; gap:20px; align-items:center; margin-bottom:22px; }
+    .hero .back { color:var(--duke-navy); text-decoration:none; font-weight:700; }
+    .hero h1{ margin:0; font-size:26px; }
+    .intro{ color:#444; margin-bottom:18px; line-height:1.6; }
+
+    /* Papers list */
+    .papers{ display:block; }
+    .paper{ background:#fff; border:1px solid #eee; border-radius:8px; padding:16px; margin-bottom:18px; box-shadow:0 1px 0 rgba(0,0,0,0.02); }
+    .paper h2{ margin:0 0 8px 0; font-size:18px; }
+    .paper .authors{ font-style:italic; color:#333; margin-bottom:8px; }
+    .paper .doi{ display:inline-block; color:var(--muted); font-size:13px; margin-bottom:8px; text-decoration:none; }
+    .paper .doi:hover{ color:var(--duke-navy); }
+    .paper .value{ margin-top:10px; padding:12px; background:#fbfbfd; border-left:4px solid var(--duke-navy); border-radius:4px; }
+    .paper .value p{ margin:0; line-height:1.5; }
+
+    footer{ max-width:var(--max-width); margin:40px auto; padding:0 20px 40px; color:var(--muted); font-size:14px; text-align:left; }
+    .me { color:var(--duke-navy); font-weight:700; font-style:italic; }
+
+    @media (max-width:900px){
+      .topbar-inner{ padding:10px 14px; }
+      .hero{ flex-direction:column; align-items:flex-start; gap:8px; }
+    }
+
+    a:focus{ outline:2px solid rgba(0,51,160,0.12); outline-offset:2px; }
+  </style>
+</head>
+<body>
+  <header class="topbar" role="banner">
+    <div class="topbar-inner">
+      <div class="brand" onclick="location.href='https://yashshah48.github.io'">
+        <div class="logo"><img src="duke_university-logo_brandlogos.net_hahhm-512x178.png" alt="Duke logo"></div>
+        <div class="site-title">Yash Shah</div>
+      </div>
+
+      <nav aria-label="Top navigation">
+        <a href="https://yashshah48.github.io" target="_blank" rel="noopener">Home</a>
+        <a href="https://yashshah48.github.io/MaterialScience" target="_blank" rel="noopener">Material Science</a>
+        <a href="https://yashshah48.github.io/Talks" target="_blank" rel="noopener">Talks</a>
+        <a href="https://yashshah48.github.io/Leadership" target="_blank" rel="noopener">Leadership</a>
+        <a href="https://yashshah48.github.io/CV" target="_blank" rel="noopener">CV</a>
+        <a href="https://yashshah48.github.io/Contact" target="_blank" rel="noopener">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <main role="main">
+    <div class="hero">
+      <a class="back" href="https://yashshah48.github.io" title="Back to home">← Home</a>
+      <h1>Publications — LCA-related papers</h1>
+    </div>
+
+    <p class="intro">
+      LCA-focused publications and short notes on what the life cycle assessment delivered for each study.
+    </p>
+
+    <div class="papers">
+
+      <article class="paper" id="paper-1">
+        <h2>Toward Sustainable Scaled-Up Synthesis of Lignin-Derived Carbon Nanoparticles Using a Furnace Aerosol Reactor</h2>
+        <div class="authors">
+          <em>S. Modi, <span class="me">Yash Shah</span>, O. Okonkwo, L. M. Gilbertson, and P. Biswas</em>
+        </div>
+        <a class="doi" href="https://pubs.acs.org/doi/full/10.1021/acs.est.5c06572" target="_blank" rel="noopener">DOI: 10.1021/acs.est.5c06572</a>
+
+        <div class="value">
+          <strong>What value LCA added?</strong>
+          <p>
+            LCA quantified cradle-to-gate environmental hotspots for scaled-up lignin-derived carbon nanoparticle production, identifying energy use, precursor sourcing, and material yield as dominant contributors. This evidence led to prioritization of process interventions (e.g., energy source switching and yield improvements) and guided scale-up decisions with quantified impact reductions.
+          </p>
+        </div>
+      </article>
+
+      <article class="paper" id="paper-2">
+        <h2>Light-Driven Chemical Cascade Reduces Barriers to Hydrogen Production</h2>
+        <div class="authors">
+          <em>V. R. Battula, G. Mark, M. S. Naeem, <span class="me">Yash Shah</span>, M. Volokh, L. M. Gilbertson, N. López, and M. Shalom</em>
+        </div>
+        <a class="doi" href="https://pubs.acs.org/doi/full/10.1021/jacs.5c07557" target="_blank" rel="noopener">DOI: 10.1021/jacs.5c07557</a>
+
+        <div class="value">
+          <strong>What value LCA added?</strong>
+          <p>
+            The LCA placed laboratory-scale advances for light-driven hydrogen production into a systems context and compared alternative pathways. It clarified trade-offs between material and catalyst intensity and lifecycle energy/emissions, informing choices for pathway selection and priorities during scale-up.
+          </p>
+        </div>
+      </article>
+
+      <article class="paper" id="paper-3">
+        <h2>Balancing Functional Properties and Environmental Impact of Graphitic Carbon Nitride: A Case Study on Boron Doping Syntheses</h2>
+        <div class="authors">
+          <em><span class="me">Yash Shah</span> and L. M. Gilbertson</em>
+        </div>
+        <a class="doi" href="https://pubs.rsc.org/en/content/articlehtml/2024/en/d3en00633f" target="_blank" rel="noopener">DOI: 10.1039/D3EN00633F</a>
+
+        <div class="value">
+          <strong>What value LCA added?</strong>
+          <p>
+            LCA enabled direct comparison between multiple synthesis routes for boron-doped graphitic carbon nitride. By quantifying electricity and precursor impacts and coupling environmental burdens to material performance, the study recommended synthesis options that balance desired functionality with lower lifecycle impacts.
+          </p>
+        </div>
+      </article>
+
+    </div>
+
+    <hr style="margin:28px 0;border:0;border-top:1px solid #eee">
+
+    <section aria-labelledby="supp-heading">
+      <h3 id="supp-heading" style="margin:0 0 10px 0;font-size:16px;">Supplementary asset</h3>
+      <p style="margin:0 0 8px;color:var(--muted);font-size:14px;">
+        Toolkit diagram (local uploaded file) — I included the local path you uploaded so you can replace it with its hosted URL when deploying.
+      </p>
+      <p style="margin:8px 0 0 0">
+        <a href="/mnt/data/453d5f6a-88b9-46ed-a005-99a07c8dbdc0.png" target="_blank" rel="noopener">Open toolkit image (uploaded file)</a>
+      </p>
+    </section>
+
+  </main>
+
+  <footer>
+    <div style="max-width:var(--max-width);margin:24px auto 60px;padding:0 20px;color:var(--muted);font-size:14px;">© <span id="year"></span> <strong>Yash Shah</strong></div>
+  </footer>
+
+  <script>
+    // set footer year
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
