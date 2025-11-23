@@ -9,7 +9,7 @@
       --bar-bg:#f6f6f6;
       --text:#222;
       --muted:#444;
-      --accent:#0033a0;
+      --duke-navy:#0033a0;
       --max-width:1100px;
       --photo-w:5.2cm;
       --gap:48px;
@@ -49,11 +49,20 @@
     nav a{ color:var(--muted); text-decoration:none; font-weight:600; font-size:14px; white-space:nowrap; }
     nav a:hover{ color:var(--text); }
 
-    .dropdown{ position:relative; display:inline-block; }
+    /* Dropdown base */
+    .dropdown{
+      position:relative;
+      display:inline-block;
+      /* ensure there's no accidental gap between trigger and menu */
+      padding-bottom:2px;
+    }
+    .dropdown > a { cursor:pointer; }
+
+    /* Submenu */
     .dropdown-content{
       display:none;
       position:absolute;
-      top:calc(100% + 6px);
+      top:100%;                 /* flush to bottom of the trigger to avoid gaps */
       left:0;
       background:#fff;
       min-width:160px;
@@ -61,10 +70,30 @@
       border-radius:6px;
       box-shadow:0 6px 18px rgba(0,0,0,0.08);
       z-index:40;
+      /* avoid accidental flicker: allow pointer to pass over small edges */
+      transform-origin: top left;
     }
-    .dropdown:hover .dropdown-content{ display:block; }
-    .dropdown-content a{ display:block; padding:10px 12px; color:var(--muted); text-decoration:none; font-weight:500; }
-    .dropdown-content a:hover{ background:#fafafa; color:var(--text); }
+
+    /* show on :hover or when .open class applied by JS */
+    .dropdown:hover .dropdown-content,
+    .dropdown.open .dropdown-content {
+      display:block;
+    }
+
+    /* submenu link styling - change color on hover to Duke navy */
+    .dropdown-content a{
+      display:block;
+      padding:10px 12px;
+      color:var(--muted);
+      text-decoration:none;
+      font-weight:500;
+    }
+    .dropdown-content a:hover,
+    .dropdown-content a:focus {
+      color:var(--duke-navy);
+      background:#fafafa;
+      outline:none;
+    }
 
     /* Centered burger on mobile */
     .burger-wrap {
@@ -162,9 +191,7 @@
       nav.nav{ display:none; }
       .burger-wrap{ display:flex; }
       .grid{ grid-template-columns: 1fr; row-gap:18px; }
-      .photo{
-        width:48vw; max-width:320px; transform:none; margin:0 auto;
-      }
+      .photo{ width:48vw; max-width:320px; transform:none; margin:0 auto; }
       .about{ grid-column:1/2; padding-left:0; text-align:justify; margin-top:6px; }
       .toolkit{ grid-column:1/2; margin-top:6px; text-align:center; }
       .toolkit img{ margin:0 auto; max-width:100%; }
@@ -184,14 +211,16 @@
         </div>
       </div>
 
+      <!-- Desktop nav -->
       <nav class="nav" role="navigation" aria-label="Main navigation">
-        <div class="dropdown">
-          <a href="#">Projects ▾</a>
-          <div class="dropdown-content">
-            <a href="#">LCA</a>
-            <a href="#">Material Science</a>
+        <div class="dropdown" data-dropdown>
+          <a aria-haspopup="true" aria-expanded="false">Projects ▾</a>
+          <div class="dropdown-content" role="menu" aria-label="Projects submenu">
+            <a href="#" role="menuitem">LCA</a>
+            <a href="#" role="menuitem">Material Science</a>
           </div>
         </div>
+
         <a href="#">Publications</a>
         <a href="#">Talks</a>
         <a href="#">Leadership</a>
@@ -200,7 +229,7 @@
       </nav>
     </div>
 
-    <!-- Centered burger on mobile -->
+    <!-- centered burger for mobile -->
     <div class="burger-wrap">
       <button class="burger" id="burger" aria-expanded="false" aria-controls="mobilePanel" aria-label="Open menu">☰ <span>Menu</span></button>
     </div>
@@ -243,46 +272,111 @@
   </main>
 
   <script>
-    // Mobile menu toggle
+    // Keep dropdown open reliably (handle small cursor gaps), and support click toggle
     (function(){
+      const DROPD_DELAY = 200; // ms
+      const dropdowns = document.querySelectorAll('[data-dropdown]');
+      dropdowns.forEach(drop => {
+        let hideTimer = null;
+        const trigger = drop.querySelector('a');
+        const menu = drop.querySelector('.dropdown-content');
+
+        // show & hide helpers
+        function show() {
+          clearTimeout(hideTimer);
+          drop.classList.add('open');
+          trigger.setAttribute('aria-expanded','true');
+        }
+        function hide() {
+          drop.classList.remove('open');
+          trigger.setAttribute('aria-expanded','false');
+        }
+
+        // mouse interactions with small delay to prevent flicker
+        drop.addEventListener('mouseenter', show);
+        drop.addEventListener('mouseleave', () => {
+          hideTimer = setTimeout(hide, DROPD_DELAY);
+        });
+
+        // also keep open while hovering menu itself
+        if(menu){
+          menu.addEventListener('mouseenter', show);
+          menu.addEventListener('mouseleave', () => {
+            hideTimer = setTimeout(hide, DROPD_DELAY);
+          });
+        }
+
+        // click toggles (good for accessibility + laptop trackpads)
+        trigger.addEventListener('click', (e) => {
+          e.preventDefault();
+          if(drop.classList.contains('open')){
+            hide();
+          } else {
+            show();
+          }
+        });
+
+        // keyboard accessibility: open on focus, close on blur
+        trigger.addEventListener('focus', show);
+        trigger.addEventListener('blur', () => {
+          hideTimer = setTimeout(hide, DROPD_DELAY);
+        });
+        if(menu){
+          // keep open while tabbing inside
+          menu.addEventListener('focusin', show);
+          menu.addEventListener('focusout', () => {
+            hideTimer = setTimeout(hide, DROPD_DELAY);
+          });
+        }
+      });
+
+      // Mobile menu handling (burger & mobile panel)
       const burger = document.getElementById('burger');
       const mobilePanel = document.getElementById('mobilePanel');
       const projToggle = document.getElementById('mobileProjectsToggle');
       const projSub = document.getElementById('projectsSub');
 
-      burger.addEventListener('click', () => {
-        const open = mobilePanel.style.display === 'block';
-        mobilePanel.style.display = open ? 'none' : 'block';
-        mobilePanel.setAttribute('aria-hidden', open ? 'true' : 'false');
-        burger.setAttribute('aria-expanded', open ? 'false' : 'true');
-      });
+      if(burger){
+        burger.addEventListener('click', () => {
+          const open = mobilePanel.style.display === 'block';
+          mobilePanel.style.display = open ? 'none' : 'block';
+          mobilePanel.setAttribute('aria-hidden', open ? 'true' : 'false');
+          burger.setAttribute('aria-expanded', open ? 'false' : 'true');
+        });
+      }
+      if(projToggle){
+        projToggle.addEventListener('click', (e) => {
+          e.preventDefault();
+          const open = projSub.style.display === 'block';
+          projSub.style.display = open ? 'none' : 'block';
+          projToggle.setAttribute('aria-expanded', open ? 'false' : 'true');
+        });
+      }
 
-      projToggle.addEventListener('click', (e) => {
-        e.preventDefault();
-        const open = projSub.style.display === 'block';
-        projSub.style.display = open ? 'none' : 'block';
-        projToggle.setAttribute('aria-expanded', open ? 'false' : 'true');
-      });
-
+      // close mobile panel if click outside
       document.addEventListener('click', (e) => {
         if (window.innerWidth > 900) return;
-        const inside = e.target.closest('.mobile-panel') || e.target.closest('.burger');
+        const inside = e.target.closest('.mobile-panel') || e.target.closest('.burger') || e.target.closest('.topbar-inner');
         if (!inside) {
           mobilePanel.style.display = 'none';
           mobilePanel.setAttribute('aria-hidden','true');
-          burger.setAttribute('aria-expanded','false');
-          projSub.style.display = 'none';
-          projToggle.setAttribute('aria-expanded','false');
+          if(burger) burger.setAttribute('aria-expanded','false');
+          if(projSub){
+            projSub.style.display = 'none';
+            projToggle.setAttribute('aria-expanded','false');
+          }
         }
       });
 
+      // ensure hidden on resize > breakpoint
       window.addEventListener('resize', () => {
         if(window.innerWidth > 900){
-          mobilePanel.style.display = 'none';
-          mobilePanel.setAttribute('aria-hidden','true');
-          burger.setAttribute('aria-expanded','false');
-          projSub.style.display = 'none';
-          projToggle.setAttribute('aria-expanded','false');
+          if(mobilePanel) mobilePanel.style.display = 'none';
+          if(burger) burger.setAttribute('aria-expanded','false');
+          if(projSub){
+            projSub.style.display = 'none';
+            projToggle.setAttribute('aria-expanded','false');
+          }
         }
       });
     })();
