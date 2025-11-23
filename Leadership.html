@@ -12,6 +12,7 @@
       --duke-navy:#0033a0;
       --max-width:1100px;
       --card-radius:8px;
+      --gap:16px;
     }
 
     body{
@@ -52,56 +53,47 @@
     h1{font-size:26px;margin-bottom:24px;text-align:left;color:var(--text);}
     h2{font-size:20px;color:var(--duke-navy);margin-top:36px;margin-bottom:12px;border-left:4px solid var(--duke-navy);padding-left:10px;}
 
-    /* Extra-curricular: horizontal scroll row (cards keep same layout) */
-    .extra-scroll-wrap{
-      overflow-x:auto;
-      padding-bottom:8px;
+    /* Extra-curricular grid (restored full-description grid) */
+    .extra-grid{
+      display:grid;
+      grid-template-columns:repeat(3, 1fr);
+      gap:var(--gap);
       margin-top:8px;
     }
-    .extra-row{
-      display:flex;
-      gap:16px;
-      align-items:stretch;
-      /* ensure items don't wrap so horizontal scroll appears */
-      white-space:nowrap;
-    }
     .extra-item{
-      flex:0 0 320px; /* fixed card width */
       background:#fff;
       border:1px solid #eee;
       border-radius:var(--card-radius);
       overflow:hidden;
       box-shadow:0 2px 4px rgba(0,0,0,0.04);
-      transition:transform 0.18s ease,box-shadow 0.18s ease;
+      transition:transform 0.15s ease,box-shadow 0.15s ease;
       display:flex;
       flex-direction:column;
-      min-height:220px;
-      vertical-align:top;
     }
-    .extra-item:hover{transform:translateY(-4px);box-shadow:0 6px 16px rgba(0,0,0,0.08);}
+    .extra-item:hover{transform:translateY(-3px);box-shadow:0 6px 16px rgba(0,0,0,0.08);}
     .extra-item img{
       width:100%;
-      height:140px;
+      height:170px;
       object-fit:cover;
       display:block;
     }
     .extra-item .meta{
-      padding:12px 14px;
+      padding:14px;
       font-size:14px;
       color:#333;
-      line-height:1.45;
+      line-height:1.5;
       flex:1;
-      text-align:left;
     }
-    .role-pill{
-      display:inline-block;
-      font-size:12px;
-      color:var(--duke-navy);
-      background:rgba(0,51,160,0.06);
-      padding:6px 8px;
-      border-radius:6px;
-      border:1px solid rgba(0,51,160,0.08);
+    .extra-item .meta .title{
+      font-weight:700;
+      color:#111;
       margin-bottom:8px;
+      font-size:15px;
+    }
+    .extra-item .meta .dates{
+      margin-top:10px;
+      font-size:13px;
+      color:var(--muted);
     }
 
     /* Mentorship / Teaching cards */
@@ -109,7 +101,7 @@
       display:grid;
       grid-template-columns:1fr 1fr;
       gap:20px;
-      margin-top:8px;
+      margin-top:18px;
     }
     .card{
       background:#fff;
@@ -140,13 +132,13 @@
     .resume-bullet p{
       margin:0;font-size:14px;color:#444;
     }
-    .meta-small{font-size:13px;color:#666;margin-top:6px;}
 
-    @media(max-width:900px){
+    @media(max-width:1100px){
+      .extra-grid{grid-template-columns:repeat(2,1fr);}
+    }
+    @media(max-width:700px){
+      .extra-grid{grid-template-columns:1fr;}
       .section-cards{grid-template-columns:1fr;}
-      .extra-item{flex:0 0 92%;min-height:200px;}
-      .extra-row{gap:12px;}
-      .extra-scroll-wrap{overflow-x:auto;}
     }
 
     footer{max-width:var(--max-width);margin:40px auto;padding:0 20px 40px;color:var(--muted);font-size:14px;text-align:left;}
@@ -183,64 +175,47 @@
   <main>
     <h1>Leadership & Involvement</h1>
 
+    <!-- Extra-curricular section (3-column grid) -->
     <h2>Extra-curricular</h2>
-
-    <!-- Horizontal scroll row: uses uploaded local images (paths below) -->
-    <div class="extra-scroll-wrap" aria-hidden="false">
-      <div class="extra-row">
-        <!-- Founding Vice Chair, India Conference at Duke -->
-        <div class="extra-item">
-          <img src="icd.jpeg" alt="India Conference at Duke">
-          <div class="meta">
-            <div class="role-pill">Founding Vice Chair — India Conference at Duke</div>
-            <p>Launched the inaugural conference to promote knowledge exchange on India. Recruited and supervised a team of 20, curated a multidisciplinary agenda with various Duke schools, secured sponsorships, and coordinated logistics for 150+ attendees and 12 speakers.</p>
-            <div class="meta-small">Apr 2024 — Apr 2025</div>
-          </div>
+    <div class="extra-grid">
+      <div class="extra-item">
+        <img src="icd.jpeg" alt="India Conference at Duke">
+        <div class="meta">
+          <div class="title">Founding Vice Chair — India Conference at Duke</div>
+          <div>Launched the inaugural conference to promote knowledge exchange on India. Recruited and supervised a team of 20, curated a multidisciplinary agenda with various Duke schools, secured sponsorships, and coordinated logistics for 150+ attendees and 12 speakers.</div>
+          <div class="dates">Apr 2024 — Apr 2025</div>
         </div>
+      </div>
 
-        <!-- Team Lead — Duke Innovation & Entrepreneurship Bootcamp -->
-        <div class="extra-item">
-          <img src="bootcamp.jpg" alt="Innovation Bootcamp">
-          <div class="meta">
-            <div class="role-pill">Team Lead — Duke Innovation &amp; Entrepreneurship Bootcamp</div>
-            <p>Led a team of 5 evaluating market viability of a water disinfection technology through ideation, human-centered design, competitor analysis, customer discovery, and storytelling.</p>
-            <div class="meta-small">Jan 2025 — Feb 2025</div>
-          </div>
+      <div class="extra-item">
+        <img src="bootcamp.jpg" alt="Innovation Bootcamp">
+        <div class="meta">
+          <div class="title">Team Lead — Duke Innovation &amp; Entrepreneurship Bootcamp</div>
+          <div>Led a team of 5 evaluating market viability of a water disinfection technology through ideation, human-centered design, competitor analysis, customer discovery, and storytelling.</div>
+          <div class="dates">Jan 2025 — Feb 2025</div>
         </div>
+      </div>
 
-        <!-- Director-General & Co-Founder, International Model United Nations -->
-        <div class="extra-item">
-          <img src="mun.jpg" alt="Model United Nations">
-          <div class="meta">
-            <div class="role-pill">Director-General & Co-Founder — International Model United Nations</div>
-            <p>Established the institute’s first Model United Nations (MUN) chapter, led the organizing team of 50, forged partnerships, and hosted 150+ delegates from India and neighboring countries.</p>
-            <div class="meta-small">Apr 2018 — Apr 2019 (NIT Rourkela)</div>
-          </div>
+      <div class="extra-item">
+        <img src="mun.jpg" alt="Model United Nations">
+        <div class="meta">
+          <div class="title">Director-General &amp; Co-Founder — International Model United Nations</div>
+          <div>Established the institute’s first Model United Nations (MUN) chapter, led the MUN organizing team of 50, forged partnerships, and hosted 150+ delegates from India and neighboring countries.</div>
+          <div class="dates">Apr 2018 — Apr 2019</div>
         </div>
+      </div>
 
-        <!-- Cognizen, The Current Affairs Club (President / Chief Coordinator) -->
-        <div class="extra-item">
-          <img src="president.jpeg" alt="Cognizen club activities">
-          <div class="meta">
-            <div class="role-pill">President — Cognizen Club of Policy & Economics</div>
-            <p>Spearheaded group discussions and club events during the technical festival, launched social initiatives like “We The People of NITR,” oversaw development of the club Android app, and supported the well-being of 60+ club members.</p>
-            <div class="meta-small">2017 — 2019 (NIT Rourkela)</div>
-          </div>
+      <div class="extra-item">
+        <img src="president.jpeg" alt="Cognizen Club">
+        <div class="meta">
+          <div class="title">President — Cognizen, The Current Affairs Club</div>
+          <div>Spearheaded group discussions on current affairs, organized club events during technical festivals, launched social initiatives like “We The People of NITR,” appointed a student team to develop the club Android app, and supported the well-being of 60+ members.</div>
+          <div class="dates">2017 — 2019</div>
         </div>
-
-        <!-- Website Curator (moved to end) -->
-        <div class="extra-item">
-          <img src="cee.jpeg" alt="CEE Departmental Symposium website">
-          <div class="meta">
-            <div class="role-pill">Website Curator — CEE Departmental Symposium</div>
-            <p>Created the symposium website, implemented content updates, and streamlined information delivery for 70+ participants across the Civil and Environmental Engineering department.</p>
-            <div class="meta-small">Oct 2024 — Mar 2025</div>
-          </div>
-        </div>
-
       </div>
     </div>
 
+    <!-- Mentorship & Teaching -->
     <h2>Mentorship</h2>
     <div class="section-cards">
       <div class="card">
