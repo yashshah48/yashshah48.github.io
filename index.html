@@ -11,8 +11,8 @@
       --muted:#444;
       --accent:#0033a0;
       --max-width:1100px;
-      --photo-w:5cm;
-      --gap:32px;
+      --photo-w:5.2cm;     /* slightly wider to ensure no overlap */
+      --gap:48px;          /* increased gap between columns */
     }
 
     body{
@@ -25,7 +25,7 @@
       align-items:center;
     }
 
-    /* Top bar */
+    /* Topbar */
     .topbar{ width:100%; background:var(--bar-bg); border-bottom:1px solid #e6e6e6; }
     .topbar-inner{
       max-width:var(--max-width);
@@ -44,9 +44,9 @@
     .name{ font-weight:700; font-size:16px; margin:0; }
     .role{ font-size:13px; color:var(--muted); margin-top:2px; }
 
-    .nav{ display:flex; gap:18px; align-items:center; }
-    .nav a{ color:var(--muted); text-decoration:none; font-weight:600; font-size:14px; white-space:nowrap; }
-    .nav a:hover{ color:var(--text); }
+    nav.nav{ display:flex; gap:18px; align-items:center; }
+    nav a{ color:var(--muted); text-decoration:none; font-weight:600; font-size:14px; white-space:nowrap; }
+    nav a:hover{ color:var(--text); }
 
     .dropdown{ position:relative; display:inline-block; }
     .dropdown-content{
@@ -62,13 +62,10 @@
       z-index:40;
     }
     .dropdown:hover .dropdown-content{ display:block; }
-    .dropdown-content a{
-      display:block; padding:10px 12px; color:var(--muted);
-      text-decoration:none; font-weight:500;
-    }
+    .dropdown-content a{ display:block; padding:10px 12px; color:var(--muted); text-decoration:none; font-weight:500; }
     .dropdown-content a:hover{ background:#fafafa; color:var(--text); }
 
-    /* Main grid */
+    /* MAIN grid */
     main{
       width:100%;
       max-width:var(--max-width);
@@ -78,99 +75,80 @@
 
     .grid{
       display:grid;
-      grid-template-columns: var(--photo-w) 1fr;
+      grid-template-columns: minmax(var(--photo-w), var(--photo-w)) 1fr;
       column-gap: var(--gap);
       align-items:start;
       row-gap:30px;
     }
 
-    /* Photo */
+    /* Photo column */
     .photo{
       width:var(--photo-w);
       max-width:100%;
       border-radius:8px;
       overflow:hidden;
       align-self:start;
+      /* shift image left slightly for clearer separation */
+      transform: translateX(-8px);
     }
-    .photo img{ width:100%; height:auto; display:block; border:2px solid #eee; }
+    .photo img{ width:100%; height:auto; display:block; border:2px solid #f0f0f0; }
 
-    /* About text */
+    /* About column */
     .about{
       font-size:17px;
-      line-height:1.6;
+      line-height:1.65;
       color:#333;
       text-align:justify;
-      grid-column: 2 / 3;
+      grid-column:2/3;
+      /* small left padding so lines never reach photo */
+      padding-left:6px;
     }
     .about h2{ margin-top:0; margin-bottom:12px; font-size:24px; }
 
-    /* Toolkit */
+    /* Toolkit: placed in second column so it lines up with About */
     .toolkit{
-      grid-column: 2 / 3;
-      margin-top:-10px;
+      grid-column:2/3;
+      margin-top:-6px; /* pulled up slightly */
       text-align:left;
     }
-    .toolkit h2{
-      font-size:24px;
-      margin:0 0 12px 0;
-    }
-    .toolkit img{
-      width:100%;
-      height:auto;
-      display:block;
-      border:none;
-      box-shadow:none;
-    }
+    .toolkit h2{ font-size:24px; margin:0 0 12px 0; }
+    .toolkit img{ width:100%; height:auto; display:block; border:none; box-shadow:none; }
 
-    /* Responsive */
+    /* MOBILE */
     @media (max-width:900px){
+      :root { --gap:24px; }
       .topbar-inner{ flex-wrap:wrap; align-items:center; }
-      .grid{ grid-template-columns:1fr; }
+      .grid{ grid-template-columns: 1fr; row-gap:18px; }
       .photo{
-        width:60vw;
-        max-width:300px;
+        width:48vw;
+        max-width:320px;
+        transform:none; /* don't shift on mobile */
         margin:0 auto;
       }
-      .about{
-        grid-column:1/2;
-        text-align:justify;
-        margin-top:20px;
-      }
-      .toolkit{
-        grid-column:1/2;
-        margin-top:20px;
-        text-align:center;
-      }
-      .toolkit img{
-        max-width:100%;
-        margin:0 auto;
-      }
-      .nav{ display:none; }
+      .about{ grid-column:1/2; padding-left:0; text-align:justify; margin-top:6px; }
+      .toolkit{ grid-column:1/2; margin-top:6px; text-align:center; }
+      .toolkit img{ margin:0 auto; max-width:100%; }
+      nav.nav{ display:none; } /* assume mobile menu elsewhere */
     }
 
-    a:focus, button:focus{
-      outline:2px solid rgba(0,51,160,0.12);
-      outline-offset:2px;
-    }
+    /* accessibility focus */
+    a:focus, button:focus{ outline:2px solid rgba(0,51,160,0.12); outline-offset:2px; }
   </style>
 </head>
 <body>
-  <header class="topbar">
+  <header class="topbar" role="banner">
     <div class="topbar-inner">
-      <div class="brand">
-        <div class="logo">
-          <img src="duke_university-logo_brandlogos.net_hahhm-512x178.png" alt="Duke University logo">
-        </div>
+      <div class="brand" aria-hidden="false">
+        <div class="logo"><img src="duke_university-logo_brandlogos.net_hahhm-512x178.png" alt="Duke University logo"></div>
         <div class="name-block">
           <div class="name"><strong>Yash Shah</strong></div>
           <div class="role">Ph.D. Candidate in Environmental Engineering</div>
         </div>
       </div>
 
-      <nav class="nav">
-        <div class="dropdown">
-          <a href="#">Projects ▾</a>
-          <div class="dropdown-content">
+      <nav class="nav" role="navigation" aria-label="Main navigation">
+        <div class="dropdown"><a href="#">Projects ▾</a>
+          <div class="dropdown-content" role="menu">
             <a href="#">LCA</a>
             <a href="#">Material Science</a>
           </div>
@@ -184,14 +162,14 @@
     </div>
   </header>
 
-  <main>
+  <main role="main">
     <div class="grid">
-      <figure class="photo">
+      <figure class="photo" aria-hidden="false">
         <img src="photo.png" alt="Profile photo">
       </figure>
 
-      <section class="about">
-        <h2>About</h2>
+      <section class="about" aria-labelledby="about-heading">
+        <h2 id="about-heading">About</h2>
         <p>
           I am a chemical engineer by training and currently a Ph.D. candidate in Environmental Engineering at Duke University with 7+ years of experience across environmental catalysis, materials design and characterization, and life cycle assessment (LCA). My doctoral research establishes structure–property–sustainability relationships for engineered nanomaterials in antimicrobial, environmental, and energy applications. I have led collaborative LCA projects with academic and industry partners, including BASF Corporation, with findings published in <em>Environmental Science & Technology</em>, <em>Journal of the American Chemical Society</em>, and <em>Sustainable Chemistry & Engineering</em>.
         </p>
@@ -200,9 +178,9 @@
         </p>
       </section>
 
-      <section class="toolkit">
-        <h2>My Research Toolkit</h2>
-        <img src="toolkit.png" alt="Research Toolkit diagram">
+      <section class="toolkit" aria-labelledby="toolkit-heading">
+        <h2 id="toolkit-heading">My Research Toolkit</h2>
+        <img src="/mnt/data/7311fa4f-993c-4d5b-914f-fb60f7409810.png" alt="Research Toolkit diagram">
       </section>
     </div>
   </main>
