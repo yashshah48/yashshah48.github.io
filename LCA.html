@@ -11,8 +11,7 @@
       --muted:#444;
       --duke-navy:#0033a0;
       --max-width:1100px;
-      --photo-w:5.2cm;
-      --gap:48px;
+      --img-w:140px;
     }
     body{
       margin:0;
@@ -39,21 +38,20 @@
     .hero h1{ margin:0; font-size:26px; }
     .intro{ color:#444; margin-bottom:18px; line-height:1.6; }
 
-    /* Papers list */
-    .papers{ display:block; }
-    .paper{ background:#fff; border:1px solid #eee; border-radius:8px; padding:16px; margin-bottom:18px; box-shadow:0 1px 0 rgba(0,0,0,0.02); }
-    .paper h2{ margin:0 0 8px 0; font-size:18px; }
-    .paper .authors{ font-style:italic; color:#333; margin-bottom:8px; }
-    .paper .doi{ display:inline-block; color:var(--muted); font-size:13px; margin-bottom:8px; text-decoration:none; }
-    .paper .doi:hover{ color:var(--duke-navy); }
-    .paper .value{ margin-top:10px; padding:12px; background:#fbfbfd; border-left:4px solid var(--duke-navy); border-radius:4px; }
-    .paper .value p{ margin:0; line-height:1.5; }
+    /* Each paper is a two-column row: image at left, content at right */
+    .paper-row{ display:grid; grid-template-columns: var(--img-w) 1fr; gap:18px; align-items:start; margin-bottom:20px; padding:12px; border:1px solid #eee; border-radius:8px; background:#fff; }
+    .paper-row img{ width:var(--img-w); height:auto; display:block; border-radius:6px; object-fit:cover; }
+    .paper-row h2{ margin:0 0 8px 0; font-size:18px; }
+    .paper-row .authors{ font-style:italic; color:#333; margin-bottom:8px; }
+    .paper-row .doi{ display:inline-block; color:var(--muted); font-size:13px; margin-bottom:8px; text-decoration:none; }
+    .paper-row .value{ margin-top:8px; padding:12px; background:#fbfbfd; border-left:4px solid var(--duke-navy); border-radius:4px; }
 
     footer{ max-width:var(--max-width); margin:40px auto; padding:0 20px 40px; color:var(--muted); font-size:14px; text-align:left; }
     .me { color:var(--duke-navy); font-weight:700; font-style:italic; }
 
     @media (max-width:900px){
-      .topbar-inner{ padding:10px 14px; }
+      .paper-row{ grid-template-columns: 1fr; }
+      .paper-row img{ width:100%; max-height:220px; margin-bottom:12px; }
       .hero{ flex-direction:column; align-items:flex-start; gap:8px; }
     }
 
@@ -63,25 +61,25 @@
 <body>
   <header class="topbar" role="banner">
     <div class="topbar-inner">
-      <div class="brand" onclick="location.href='https://yashshah48.github.io'">
+      <div class="brand" onclick="location.href='/'">
         <div class="logo"><img src="duke_university-logo_brandlogos.net_hahhm-512x178.png" alt="Duke logo"></div>
         <div class="site-title">Yash Shah</div>
       </div>
 
       <nav aria-label="Top navigation">
-        <a href="https://yashshah48.github.io" target="_blank" rel="noopener">Home</a>
-        <a href="https://yashshah48.github.io/MaterialScience" target="_blank" rel="noopener">Material Science</a>
-        <a href="https://yashshah48.github.io/Talks" target="_blank" rel="noopener">Talks</a>
-        <a href="https://yashshah48.github.io/Leadership" target="_blank" rel="noopener">Leadership</a>
-        <a href="https://yashshah48.github.io/CV" target="_blank" rel="noopener">CV</a>
-        <a href="https://yashshah48.github.io/Contact" target="_blank" rel="noopener">Contact</a>
+        <a href="/" title="Home">Home</a>
+        <a href="/MaterialScience">Material Science</a>
+        <a href="/Talks">Talks</a>
+        <a href="/Leadership">Leadership</a>
+        <a href="/CV">CV</a>
+        <a href="/Contact">Contact</a>
       </nav>
     </div>
   </header>
 
   <main role="main">
     <div class="hero">
-      <a class="back" href="https://yashshah48.github.io" title="Back to home">← Home</a>
+      <a class="back" href="/" title="Back to home">← Home</a>
       <h1>Publications — LCA-related papers</h1>
     </div>
 
@@ -89,13 +87,12 @@
       LCA-focused publications and short notes on what the life cycle assessment delivered for each study.
     </p>
 
-    <div class="papers">
-
-      <article class="paper" id="paper-1">
+    <!-- Paper 1 -->
+    <article class="paper-row" id="paper-1">
+      <img src="LCA1.jpeg" alt="LCA image 1">
+      <div>
         <h2>Toward Sustainable Scaled-Up Synthesis of Lignin-Derived Carbon Nanoparticles Using a Furnace Aerosol Reactor</h2>
-        <div class="authors">
-          <em>S. Modi, <span class="me">Yash Shah</span>, O. Okonkwo, L. M. Gilbertson, and P. Biswas</em>
-        </div>
+        <div class="authors"><em>S. Modi, <span class="me">Yash Shah</span>, O. Okonkwo, L. M. Gilbertson, and P. Biswas</em></div>
         <a class="doi" href="https://pubs.acs.org/doi/full/10.1021/acs.est.5c06572" target="_blank" rel="noopener">DOI: 10.1021/acs.est.5c06572</a>
 
         <div class="value">
@@ -104,13 +101,15 @@
             LCA quantified cradle-to-gate environmental hotspots for scaled-up lignin-derived carbon nanoparticle production, identifying energy use, precursor sourcing, and material yield as dominant contributors. This evidence led to prioritization of process interventions (e.g., energy source switching and yield improvements) and guided scale-up decisions with quantified impact reductions.
           </p>
         </div>
-      </article>
+      </div>
+    </article>
 
-      <article class="paper" id="paper-2">
+    <!-- Paper 2 -->
+    <article class="paper-row" id="paper-2">
+      <img src="LCA2.jpeg" alt="LCA image 2">
+      <div>
         <h2>Light-Driven Chemical Cascade Reduces Barriers to Hydrogen Production</h2>
-        <div class="authors">
-          <em>V. R. Battula, G. Mark, M. S. Naeem, <span class="me">Yash Shah</span>, M. Volokh, L. M. Gilbertson, N. López, and M. Shalom</em>
-        </div>
+        <div class="authors"><em>V. R. Battula, G. Mark, M. S. Naeem, <span class="me">Yash Shah</span>, M. Volokh, L. M. Gilbertson, N. López, and M. Shalom</em></div>
         <a class="doi" href="https://pubs.acs.org/doi/full/10.1021/jacs.5c07557" target="_blank" rel="noopener">DOI: 10.1021/jacs.5c07557</a>
 
         <div class="value">
@@ -119,13 +118,15 @@
             The LCA placed laboratory-scale advances for light-driven hydrogen production into a systems context and compared alternative pathways. It clarified trade-offs between material and catalyst intensity and lifecycle energy/emissions, informing choices for pathway selection and priorities during scale-up.
           </p>
         </div>
-      </article>
+      </div>
+    </article>
 
-      <article class="paper" id="paper-3">
+    <!-- Paper 3 -->
+    <article class="paper-row" id="paper-3">
+      <img src="LCA3.png" alt="LCA image 3">
+      <div>
         <h2>Balancing Functional Properties and Environmental Impact of Graphitic Carbon Nitride: A Case Study on Boron Doping Syntheses</h2>
-        <div class="authors">
-          <em><span class="me">Yash Shah</span> and L. M. Gilbertson</em>
-        </div>
+        <div class="authors"><em><span class="me">Yash Shah</span> and L. M. Gilbertson</em></div>
         <a class="doi" href="https://pubs.rsc.org/en/content/articlehtml/2024/en/d3en00633f" target="_blank" rel="noopener">DOI: 10.1039/D3EN00633F</a>
 
         <div class="value">
@@ -134,21 +135,8 @@
             LCA enabled direct comparison between multiple synthesis routes for boron-doped graphitic carbon nitride. By quantifying electricity and precursor impacts and coupling environmental burdens to material performance, the study recommended synthesis options that balance desired functionality with lower lifecycle impacts.
           </p>
         </div>
-      </article>
-
-    </div>
-
-    <hr style="margin:28px 0;border:0;border-top:1px solid #eee">
-
-    <section aria-labelledby="supp-heading">
-      <h3 id="supp-heading" style="margin:0 0 10px 0;font-size:16px;">Supplementary asset</h3>
-      <p style="margin:0 0 8px;color:var(--muted);font-size:14px;">
-        Toolkit diagram (local uploaded file) — I included the local path you uploaded so you can replace it with its hosted URL when deploying.
-      </p>
-      <p style="margin:8px 0 0 0">
-        <a href="/mnt/data/453d5f6a-88b9-46ed-a005-99a07c8dbdc0.png" target="_blank" rel="noopener">Open toolkit image (uploaded file)</a>
-      </p>
-    </section>
+      </div>
+    </article>
 
   </main>
 
@@ -159,6 +147,8 @@
   <script>
     // set footer year
     document.getElementById('year').textContent = new Date().getFullYear();
+    // clicking brand goes home
+    document.querySelector('.brand').addEventListener('click', ()=> window.location.href = '/');
   </script>
 </body>
 </html>
