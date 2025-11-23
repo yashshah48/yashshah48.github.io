@@ -75,7 +75,7 @@
     .projects-lca{grid-column:2/3;margin-top:0;}
     .paper{margin-bottom:18px;padding:12px;border-radius:6px;border:1px solid #eee;background:#fff;}
     .paper h3{margin:0 0 6px 0;font-size:18px;}
-    .paper .authors{font-size:15px;margin-bottom:6px;}
+    .paper .authors{font-size:15px;margin-bottom:6px;color:#333;}
     .paper .doi{font-size:13px;color:var(--muted);margin-bottom:8px;display:block;}
     .paper .value{margin-top:8px;padding:10px;background:#fbfbfd;border-left:4px solid var(--duke-navy);font-size:15px;color:#222;border-radius:4px;}
 
@@ -156,6 +156,7 @@
       </p>
     </section>
 
+    <!-- toolkit is a proper toggleable section, image uses uploaded local path (will be transformed when deployed) -->
     <section id="toolkit" class="section toolkit" aria-labelledby="toolkit-heading">
       <h2 id="toolkit-heading">My Research Toolkit</h2>
       <img src="toolkit.png" alt="Research Toolkit diagram">
@@ -163,13 +164,68 @@
 
     <section id="projects-lca" class="section projects-lca">
       <h2>Projects — LCA</h2>
-      <!-- papers here (same as before) -->
+
+      <article class="paper">
+        <h3>Toward Sustainable Scaled-Up Synthesis of Lignin-Derived Carbon Nanoparticles Using a Furnace Aerosol Reactor</h3>
+        <div class="authors"><em>S. Modi, <span class="me">Yash Shah</span>, O. Okonkwo, L. M. Gilbertson, and P. Biswas</em></div>
+        <a class="doi" href="https://pubs.acs.org/doi/full/10.1021/acs.est.5c06572" target="_blank" rel="noopener">DOI: 10.1021/acs.est.5c06572</a>
+        <div class="value">
+          <strong>What value LCA added?</strong>
+          <p>LCA quantified cradle-to-gate environmental hotspots for the scaled-up production route. It highlighted energy, precursor sourcing, and yield as dominant contributors and suggested priority interventions (energy source switching, process yield improvements) to reduce impacts at scale.</p>
+        </div>
+      </article>
+
+      <article class="paper">
+        <h3>Light-Driven Chemical Cascade Reduces Barriers to Hydrogen Production</h3>
+        <div class="authors"><em>V.R. Battula, G. Mark, M.S. Naeem, <span class="me">Yash Shah</span>, M. Volokh, L.M. Gilbertson, N. López, and M. Shalom</em></div>
+        <a class="doi" href="https://pubs.acs.org/doi/full/10.1021/jacs.5c07557" target="_blank" rel="noopener">DOI: 10.1021/jacs.5c07557</a>
+        <div class="value">
+          <strong>What value LCA added?</strong>
+          <p>The LCA compared alternative hydrogen production pathways and placed the laboratory performance gains into a systems context, revealing trade-offs between increased material/catalyst use and lifecycle energy/emissions; it guided recommendations for pathway selection and scale-up priorities.</p>
+        </div>
+      </article>
+
+      <article class="paper">
+        <h3>Balancing Functional Properties and Environmental Impact of Graphitic Carbon Nitride: A Case Study on Boron Doping Syntheses</h3>
+        <div class="authors"><em><span class="me">Yash Shah</span> and L. M. Gilbertson</em></div>
+        <a class="doi" href="https://pubs.rsc.org/en/content/articlehtml/2024/en/d3en00633f" target="_blank" rel="noopener">DOI: 10.1039/D3EN00633F</a>
+        <div class="value">
+          <strong>What value LCA added?</strong>
+          <p>LCA enabled direct comparison between synthesis routes, quantifying electricity and precursor impacts and allowing coupling of performance metrics with environmental burden to recommend synthesis methods that balance functionality with lower lifecycle impacts.</p>
+        </div>
+      </article>
+
     </section>
+
+    <section id="projects-material" class="section">
+      <h2>Projects — Material Science</h2>
+      <p style="color:#444">Content coming soon.</p>
+    </section>
+
+    <section id="publications" class="section"><h2>Publications</h2></section>
+    <section id="talks" class="section"><h2>Talks</h2></section>
+    <section id="leadership" class="section"><h2>Leadership</h2></section>
+    <section id="cv" class="section"><h2>CV</h2></section>
+    <section id="contact" class="section"><h2>Contact</h2><p>Email: <a href="mailto:shah.yash@duke.edu">shah.yash@duke.edu</a></p></section>
   </div>
 </main>
 
 <script>
 (function(){
+  const DROPD_DELAY=200;
+  const dropdowns=document.querySelectorAll('[data-dropdown]');
+  dropdowns.forEach(drop=>{
+    let hideTimer;
+    const trigger=drop.querySelector('a');
+    const menu=drop.querySelector('.dropdown-content');
+    function show(){clearTimeout(hideTimer);drop.classList.add('open');trigger.setAttribute('aria-expanded','true');}
+    function hide(){drop.classList.remove('open');trigger.setAttribute('aria-expanded','false');}
+    drop.addEventListener('mouseenter',show);
+    drop.addEventListener('mouseleave',()=>hideTimer=setTimeout(hide,DROPD_DELAY));
+    if(menu){menu.addEventListener('mouseenter',show);menu.addEventListener('mouseleave',()=>hideTimer=setTimeout(hide,DROPD_DELAY));}
+    trigger.addEventListener('click',e=>{e.preventDefault();drop.classList.toggle('open');trigger.setAttribute('aria-expanded',drop.classList.contains('open'));});
+  });
+
   const burger=document.getElementById('burger');
   const mobilePanel=document.getElementById('mobilePanel');
   const projToggle=document.getElementById('mobileProjectsToggle');
@@ -185,9 +241,7 @@
       if(a.getAttribute('data-nav')===id)a.classList.add('nav-active');
       else a.classList.remove('nav-active');
     });
-    if(mobilePanel&&mobilePanel.style.display==='block'){
-      mobilePanel.style.display='none';burger.setAttribute('aria-expanded','false');
-    }
+    if(mobilePanel&&mobilePanel.style.display==='block'){mobilePanel.style.display='none';burger.setAttribute('aria-expanded','false');}
     window.scrollTo({top:0,behavior:'smooth'});
   }
 
@@ -198,11 +252,13 @@
       if(id)showSection(id);
     });
   });
+
   burger.addEventListener('click',()=>{
     const open=mobilePanel.style.display==='block';
     mobilePanel.style.display=open?'none':'block';
     burger.setAttribute('aria-expanded',!open);
   });
+
   projToggle.addEventListener('click',e=>{
     e.preventDefault();
     const open=projSub.style.display==='block';
@@ -210,10 +266,11 @@
     projToggle.setAttribute('aria-expanded',!open);
   });
 
-  // click logo or photo to go home (About)
+  // home actions: logo and profile photo
   document.getElementById('homeLogo').addEventListener('click',()=>showSection('about'));
   document.getElementById('homePhoto').addEventListener('click',()=>showSection('about'));
 
+  // default view
   showSection('about');
 })();
 </script>
