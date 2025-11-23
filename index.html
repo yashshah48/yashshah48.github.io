@@ -44,11 +44,13 @@
     .name{ font-weight:700; font-size:16px; margin:0; }
     .role{ font-size:13px; color:var(--muted); margin-top:2px; }
 
+    /* Desktop nav */
     nav.nav{ display:flex; gap:18px; align-items:center; }
     nav a{ color:var(--muted); text-decoration:none; font-weight:600; font-size:14px; white-space:nowrap; }
     nav a:hover{ color:var(--text); }
 
     .dropdown{ position:relative; display:inline-block; }
+    .dropdown > a { cursor: pointer; }
     .dropdown-content{
       display:none;
       position:absolute;
@@ -95,7 +97,7 @@
     /* About column */
     .about{
       font-size:17px;
-      line-height:1.6;  /* reverted */
+      line-height:1.6;
       color:#333;
       text-align:justify;
       grid-column:2/3;
@@ -112,27 +114,55 @@
     .toolkit h2{ font-size:24px; margin:0 0 12px 0; }
     .toolkit img{ width:100%; height:auto; display:block; border:none; box-shadow:none; }
 
-    /* Responsive */
+    /* MOBILE NAV + BEHAVIOR */
+    .burger {
+      display:none;
+      background:transparent;
+      border:0;
+      font-size:20px;
+      cursor:pointer;
+      padding:6px;
+      color:var(--muted);
+    }
+    .mobile-panel {
+      display:none;
+      position:fixed;
+      top:56px; /* just under topbar */
+      right:16px;
+      left:16px;
+      background:#fff;
+      border:1px solid #e6e6e6;
+      border-radius:8px;
+      box-shadow:0 12px 30px rgba(0,0,0,0.12);
+      z-index:100;
+      max-height:70vh;
+      overflow:auto;
+      padding:10px;
+    }
+    .mobile-panel a{
+      display:block; padding:10px 12px; color:var(--muted); text-decoration:none; font-weight:600; border-bottom:1px solid #f2f2f2;
+    }
+    .mobile-panel a:last-child{ border-bottom:0; }
+
+    .mobile-submenu { display:none; padding-left:12px; }
+    .mobile-submenu a { font-weight:500; padding:8px 12px; display:block; color:var(--muted); }
+
+    /* small screens: show burger and mobile panel */
     @media (max-width:900px){
-      :root { --gap:24px; }
       .topbar-inner{ flex-wrap:wrap; align-items:center; }
+      nav.nav{ display:none; }
+      .burger{ display:block; }
       .grid{ grid-template-columns: 1fr; row-gap:18px; }
       .photo{
-        width:48vw;
-        max-width:320px;
-        transform:none;
-        margin:0 auto;
+        width:48vw; max-width:320px; transform:none; margin:0 auto;
       }
       .about{ grid-column:1/2; padding-left:0; text-align:justify; margin-top:6px; }
       .toolkit{ grid-column:1/2; margin-top:6px; text-align:center; }
       .toolkit img{ margin:0 auto; max-width:100%; }
-      nav.nav{ display:none; }
     }
 
-    a:focus, button:focus{
-      outline:2px solid rgba(0,51,160,0.12);
-      outline-offset:2px;
-    }
+    /* Accessibility */
+    a:focus, button:focus{ outline:2px solid rgba(0,51,160,0.12); outline-offset:2px; }
   </style>
 </head>
 <body>
@@ -146,9 +176,11 @@
         </div>
       </div>
 
+      <!-- Desktop nav shown on wide screens -->
       <nav class="nav" role="navigation" aria-label="Main navigation">
-        <div class="dropdown"><a href="#">Projects ▾</a>
-          <div class="dropdown-content" role="menu">
+        <div class="dropdown">
+          <a href="#" aria-haspopup="true">Projects ▾</a>
+          <div class="dropdown-content" role="menu" aria-label="Projects submenu">
             <a href="#">LCA</a>
             <a href="#">Material Science</a>
           </div>
@@ -159,8 +191,26 @@
         <a href="#">CV</a>
         <a href="#">Contact</a>
       </nav>
+
+      <!-- Burger for mobile -->
+      <button class="burger" id="burger" aria-expanded="false" aria-controls="mobilePanel" aria-label="Open menu">☰</button>
     </div>
   </header>
+
+  <!-- Mobile panel (hidden by default) -->
+  <div class="mobile-panel" id="mobilePanel" aria-hidden="true">
+    <a href="#" id="mobileProjectsToggle" aria-controls="projectsSub" aria-expanded="false">Projects ▾</a>
+    <div class="mobile-submenu" id="projectsSub">
+      <a href="#">LCA</a>
+      <a href="#">Material Science</a>
+    </div>
+
+    <a href="#">Publications</a>
+    <a href="#">Talks</a>
+    <a href="#">Leadership</a>
+    <a href="#">CV</a>
+    <a href="#">Contact</a>
+  </div>
 
   <main role="main">
     <div class="grid">
@@ -184,5 +234,54 @@
       </section>
     </div>
   </main>
+
+  <script>
+    // Mobile menu toggle
+    (function(){
+      const burger = document.getElementById('burger');
+      const mobilePanel = document.getElementById('mobilePanel');
+      const projToggle = document.getElementById('mobileProjectsToggle');
+      const projSub = document.getElementById('projectsSub');
+
+      burger.addEventListener('click', () => {
+        const open = mobilePanel.style.display === 'block';
+        mobilePanel.style.display = open ? 'none' : 'block';
+        mobilePanel.setAttribute('aria-hidden', open ? 'true' : 'false');
+        burger.setAttribute('aria-expanded', open ? 'false' : 'true');
+      });
+
+      // Projects submenu toggle on mobile
+      projToggle.addEventListener('click', (e) => {
+        e.preventDefault();
+        const open = projSub.style.display === 'block';
+        projSub.style.display = open ? 'none' : 'block';
+        projToggle.setAttribute('aria-expanded', open ? 'false' : 'true');
+      });
+
+      // close mobile panel if click outside
+      document.addEventListener('click', (e) => {
+        if (window.innerWidth > 900) return;
+        const inside = e.target.closest('.mobile-panel') || e.target.closest('.burger');
+        if (!inside) {
+          mobilePanel.style.display = 'none';
+          mobilePanel.setAttribute('aria-hidden','true');
+          burger.setAttribute('aria-expanded','false');
+          projSub.style.display = 'none';
+          projToggle.setAttribute('aria-expanded','false');
+        }
+      });
+
+      // ensure hidden on resize > breakpoint
+      window.addEventListener('resize', () => {
+        if(window.innerWidth > 900){
+          mobilePanel.style.display = 'none';
+          mobilePanel.setAttribute('aria-hidden','true');
+          burger.setAttribute('aria-expanded','false');
+          projSub.style.display = 'none';
+          projToggle.setAttribute('aria-expanded','false');
+        }
+      });
+    })();
+  </script>
 </body>
 </html>
