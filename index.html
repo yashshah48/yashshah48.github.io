@@ -156,9 +156,10 @@
       </p>
     </section>
 
-  <section class="toolkit">
-      <h2>My Research Toolkit</h2>
-      <!-- fixed to uploaded file path so it displays -->
+    <!-- toolkit is now a proper toggleable section -->
+    <section id="toolkit" class="section toolkit" aria-labelledby="toolkit-heading">
+      <h2 id="toolkit-heading">My Research Toolkit</h2>
+      <!-- using uploaded file path (will be transformed to hosted URL) -->
       <img src="toolkit.png" alt="Research Toolkit diagram">
     </section>
 
@@ -243,22 +244,40 @@
 
   const navEls=document.querySelectorAll('[data-nav]');
   const sections=document.querySelectorAll('.section');
+
   function showSection(id){
-    sections.forEach(s=>s.classList.toggle('active',s.id===id));
+    // toggle sections normally
+    sections.forEach(s => s.classList.toggle('active', s.id === id));
+
+    // toolkit is shown only when About is active or toolkit itself is selected
+    const toolkit = document.getElementById('toolkit');
+    if (toolkit) {
+      toolkit.classList.toggle('active', id === 'about' || id === 'toolkit');
+    }
+
+    // highlight active nav links (desktop + mobile)
     document.querySelectorAll('[data-nav]').forEach(a=>{
-      if(a.getAttribute('data-nav')===id)a.classList.add('nav-active');
+      if(a.getAttribute('data-nav')===id) a.classList.add('nav-active');
       else a.classList.remove('nav-active');
     });
+
+    // close mobile panel if open
     const mp=document.getElementById('mobilePanel');
-    if(mp&&mp.style.display==='block'){mp.style.display='none';burger.setAttribute('aria-expanded','false');}
+    if(mp && mp.style.display==='block'){
+      mp.style.display='none';
+      burger.setAttribute('aria-expanded','false');
+    }
   }
+
   navEls.forEach(el=>{
     el.addEventListener('click',e=>{
       e.preventDefault();
       const id=el.getAttribute('data-nav');
-      if(id){showSection(id);window.scrollTo({top:0,behavior:'smooth'});}
+      if(id){ showSection(id); window.scrollTo({top:0,behavior:'smooth'}); }
     });
   });
+
+  // default view
   showSection('about');
 })();
 </script>
