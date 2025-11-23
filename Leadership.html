@@ -1,0 +1,276 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Leadership — Yash Shah</title>
+  <style>
+    :root{
+      --bar-bg:#f6f6f6;
+      --text:#222;
+      --muted:#444;
+      --duke-navy:#0033a0;
+      --max-width:1100px;
+      --card-radius:8px;
+    }
+
+    body{
+      margin:0;
+      font-family:"Helvetica Neue", Arial, sans-serif;
+      color:var(--text);
+      background:#fff;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+    }
+
+    .topbar{width:100%;background:var(--bar-bg);border-bottom:1px solid #e6e6e6;}
+    .topbar-inner{
+      max-width:var(--max-width);width:100%;margin:0 auto;padding:12px 20px;
+      display:flex;align-items:flex-end;justify-content:space-between;gap:12px;box-sizing:border-box;
+    }
+    .brand{display:flex;align-items:flex-end;gap:12px;cursor:pointer;}
+    .logo img{height:32px;width:auto;display:block;}
+    .name-block{display:flex;flex-direction:column;line-height:1.15;}
+    .name{font-weight:700;font-size:16px;margin:0;}
+    .role{font-size:13px;color:var(--muted);margin-top:2px;}
+
+    nav.nav{display:flex;gap:18px;align-items:center;}
+    nav a{color:var(--muted);text-decoration:none;font-weight:600;font-size:14px;transition:color .2s ease;}
+    nav a:hover,nav a:focus{color:var(--duke-navy);}
+
+    .dropdown{position:relative;display:inline-block;padding-bottom:2px;}
+    .dropdown> a{cursor:pointer;}
+    .dropdown-content{
+      display:none;position:absolute;top:100%;left:0;background:#fff;min-width:160px;border:1px solid #ddd;
+      border-radius:6px;box-shadow:0 6px 18px rgba(0,0,0,0.08);z-index:40;
+    }
+    .dropdown:hover .dropdown-content,.dropdown.open .dropdown-content{display:block;}
+    .dropdown-content a{display:block;padding:10px 12px;color:var(--muted);text-decoration:none;font-weight:500;}
+    .dropdown-content a:hover{color:var(--duke-navy);background:#fafafa;}
+
+    main{max-width:var(--max-width);margin:40px auto;padding:0 20px 80px;box-sizing:border-box;}
+    h1{font-size:26px;margin-bottom:24px;text-align:left;color:var(--text);}
+    h2{font-size:20px;color:var(--duke-navy);margin-top:36px;margin-bottom:12px;border-left:4px solid var(--duke-navy);padding-left:10px;}
+
+    /* Extra-curricular photo grid */
+    .extra-grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fill,minmax(240px,1fr));
+      gap:16px;
+      margin-top:8px;
+    }
+    .extra-item{
+      background:#fff;
+      border:1px solid #eee;
+      border-radius:var(--card-radius);
+      overflow:hidden;
+      box-shadow:0 2px 4px rgba(0,0,0,0.04);
+      transition:transform 0.18s ease,box-shadow 0.18s ease;
+      display:flex;
+      flex-direction:column;
+      min-height:220px;
+    }
+    .extra-item:hover{transform:translateY(-4px);box-shadow:0 6px 16px rgba(0,0,0,0.08);}
+    .extra-item img{
+      width:100%;
+      height:140px;
+      object-fit:cover;
+      display:block;
+    }
+    .extra-item .meta{
+      padding:12px 14px;
+      font-size:14px;
+      color:#333;
+      line-height:1.45;
+      flex:1;
+    }
+    .role-pill{
+      display:inline-block;
+      font-size:12px;
+      color:var(--duke-navy);
+      background:rgba(0,51,160,0.06);
+      padding:6px 8px;
+      border-radius:6px;
+      border:1px solid rgba(0,51,160,0.08);
+      margin-bottom:8px;
+    }
+
+    /* Mentorship / Teaching cards */
+    .section-cards{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:20px;
+      margin-top:8px;
+    }
+    .card{
+      background:#fff;
+      border:1px solid #eee;
+      border-radius:var(--card-radius);
+      padding:16px;
+      box-shadow:0 2px 4px rgba(0,0,0,0.04);
+    }
+    .card h3{
+      margin-top:0;
+      color:var(--duke-navy);
+      font-size:18px;
+      margin-bottom:8px;
+    }
+    .card p{margin:0;font-size:15px;line-height:1.6;color:#333;}
+
+    /* Resume bullets style */
+    .resume-bullet{
+      margin:10px 0;
+      padding-left:12px;
+      border-left:3px solid #f0f0f0;
+    }
+    .resume-bullet h4{
+      margin:0 0 6px 0;
+      font-size:15px;
+      color:#111;
+    }
+    .resume-bullet p{
+      margin:0;font-size:14px;color:#444;
+    }
+    .meta-small{font-size:13px;color:#666;margin-top:6px;}
+
+    @media(max-width:900px){
+      .section-cards{grid-template-columns:1fr;}
+      .extra-grid{grid-template-columns:1fr;}
+    }
+
+    footer{max-width:var(--max-width);margin:40px auto;padding:0 20px 40px;color:var(--muted);font-size:14px;text-align:left;}
+    a:focus{outline:2px solid rgba(0,51,160,0.12);outline-offset:2px;}
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="topbar-inner">
+      <div class="brand" id="brand">
+        <div class="logo"><img src="duke_university-logo_brandlogos.net_hahhm-512x178.png" alt="Duke University logo"></div>
+        <div class="name-block">
+          <div class="name"><strong>Yash Shah</strong></div>
+          <div class="role">Ph.D. Candidate in Environmental Engineering</div>
+        </div>
+      </div>
+
+      <nav class="nav">
+        <div class="dropdown" data-dropdown>
+          <a>Publications ▾</a>
+          <div class="dropdown-content">
+            <a href="/LCA">LCA</a>
+            <a href="/MaterialScience">Material Science</a>
+          </div>
+        </div>
+        <a href="/Talks">Talks</a>
+        <a href="/Leadership">Leadership</a>
+        <a href="/CV_Shah_Research.pdf" target="_blank" rel="noopener">CV</a>
+        <a href="/Contact">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <h1>Leadership & Involvement</h1>
+
+    <h2>Extra-curricular</h2>
+    <div class="extra-grid" aria-hidden="false">
+      <div class="extra-item">
+        <img src="/mnt/data/453d5f6a-88b9-46ed-a005-99a07c8dbdc0.png" alt="India Conference at Duke">
+        <div class="meta">
+          <div class="role-pill">Founding Vice Chair — India Conference at Duke</div>
+          <p>Launched the inaugural conference to promote knowledge exchange on India. Recruited and supervised a team of 20, curated a multidisciplinary agenda with various Duke schools, secured $15,000+ in sponsorships, and coordinated logistics for 300+ attendees and 12 speakers.</p>
+          <div class="meta-small">Apr 2024 — Apr 2025</div>
+        </div>
+      </div>
+
+      <div class="extra-item">
+        <img src="/mnt/data/1d4df0be-46bb-4c3d-9335-fd16e53a3314.png" alt="CEE Departmental Symposium">
+        <div class="meta">
+          <div class="role-pill">Website Curator — CEE Departmental Symposium</div>
+          <p>Created the symposium website, implemented content updates, and streamlined information delivery for 70+ participants across the Civil and Environmental Engineering department.</p>
+          <div class="meta-small">Oct 2024 — Mar 2025</div>
+        </div>
+      </div>
+
+      <div class="extra-item">
+        <img src="/mnt/data/7311fa4f-993c-4d5b-914f-fb60f7409810.png" alt="Innovation & Entrepreneurship Bootcamp">
+        <div class="meta">
+          <div class="role-pill">Team Lead — Duke Innovation &amp; Entrepreneurship Bootcamp</div>
+          <p>Led a team of 5 evaluating market viability of a water disinfection technology through ideation, human-centered design, competitor analysis, customer discovery, and storytelling.</p>
+          <div class="meta-small">Jan 2025 — Feb 2025</div>
+        </div>
+      </div>
+
+      <!-- fourth item without photo (NIT) -->
+      <div class="extra-item">
+        <img src="/mnt/data/453d5f6a-88b9-46ed-a005-99a07c8dbdc0.png" alt="AIChE Student Chapter">
+        <div class="meta">
+          <div class="role-pill">Technical Head — AIChE Student Chapter</div>
+          <p>Oversaw technical seminars, managed lab-based demonstrations, and led a team of volunteers to execute chapter activities and outreach.</p>
+          <div class="meta-small">Apr 2018 — Apr 2019 (NIT Rourkela)</div>
+        </div>
+      </div>
+    </div>
+
+    <h2>Mentorship</h2>
+    <div class="section-cards">
+      <div class="card">
+        <h3>Undergraduate Research Mentorship</h3>
+        <div class="resume-bullet">
+          <h4>Project supervision & co-authorship</h4>
+          <p>Mentored undergraduate researchers on nanomaterial synthesis, characterization, and LCA projects. Guided experimental design, data analysis, and manuscript preparation — resulting in conference presentations and co-authored papers.</p>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>Peer Mentor — Graduate Mentorship Program</h3>
+        <div class="resume-bullet">
+          <h4>Transition & career guidance</h4>
+          <p>Provided academic and career guidance to incoming graduate students, supporting their onboarding, skill-building, and integration into research labs and departmental life.</p>
+        </div>
+      </div>
+    </div>
+
+    <h2>Teaching</h2>
+    <div class="section-cards" style="margin-bottom:24px;">
+      <div class="card">
+        <h3>Teaching Assistant — Environmental Engineering Fundamentals</h3>
+        <p>Assisted in course delivery and laboratory sessions (water treatment, reactor design) for 60+ students; developed lab exercises and assessment rubrics, and held office hours for student support.</p>
+      </div>
+      <div class="card">
+        <h3>Guest Lecturer — Life Cycle Assessment for Engineers</h3>
+        <p>Delivered invited lectures and practical exercises on applying life cycle thinking to materials selection, process evaluation, and sustainability metrics for engineering students.</p>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <div style="max-width:var(--max-width);margin:24px auto 60px;padding:0 20px;color:var(--muted);font-size:14px;">
+      © <span id="year"></span> <strong>Yash Shah</strong>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+    document.getElementById('brand').addEventListener('click',()=>window.location.href='/');
+
+    (function(){
+      const DROPD_DELAY=200;
+      const drop=document.querySelector('[data-dropdown]');
+      if(!drop)return;
+      let hideTimer;
+      const trigger=drop.querySelector('a');
+      const menu=drop.querySelector('.dropdown-content');
+      function show(){clearTimeout(hideTimer);drop.classList.add('open');}
+      function hide(){drop.classList.remove('open');}
+      drop.addEventListener('mouseenter',show);
+      drop.addEventListener('mouseleave',()=>hideTimer=setTimeout(hide,DROPD_DELAY));
+      if(menu){
+        menu.addEventListener('mouseenter',show);
+        menu.addEventListener('mouseleave',()=>hideTimer=setTimeout(hide,DROPD_DELAY));
+      }
+      trigger.addEventListener('click',e=>{e.preventDefault();drop.classList.toggle('open');});
+    })();
+  </script>
+</body>
+</html>
