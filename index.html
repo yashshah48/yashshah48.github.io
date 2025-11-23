@@ -25,476 +25,236 @@
       align-items:center;
     }
 
-    /* Topbar */
-    .topbar{ width:100%; background:var(--bar-bg); border-bottom:1px solid #e6e6e6; }
+    .topbar{width:100%;background:var(--bar-bg);border-bottom:1px solid #e6e6e6;}
     .topbar-inner{
-      max-width:var(--max-width);
-      width:100%;
-      margin:0 auto;
-      padding:12px 20px;
-      box-sizing:border-box;
-      display:flex;
-      align-items:flex-end;
-      justify-content:space-between;
-      gap:12px;
+      max-width:var(--max-width);width:100%;margin:0 auto;padding:12px 20px;
+      display:flex;align-items:flex-end;justify-content:space-between;gap:12px;box-sizing:border-box;
     }
-    .brand{ display:flex; align-items:flex-end; gap:12px; }
-    .logo img{ height:32px; width:auto; display:block; }
-    .name-block{ display:flex; flex-direction:column; line-height:1.15; }
-    .name{ font-weight:700; font-size:16px; margin:0; }
-    .role{ font-size:13px; color:var(--muted); margin-top:2px; }
+    .brand{display:flex;align-items:flex-end;gap:12px;}
+    .logo img{height:32px;width:auto;display:block;}
+    .name-block{display:flex;flex-direction:column;line-height:1.15;}
+    .name{font-weight:700;font-size:16px;margin:0;}
+    .role{font-size:13px;color:var(--muted);margin-top:2px;}
 
-    /* Desktop nav */
-    nav.nav{ display:flex; gap:18px; align-items:center; }
-    nav a{ color:var(--muted); text-decoration:none; font-weight:600; font-size:14px; white-space:nowrap; transition:color 0.2s ease; }
-    nav a:hover, nav a:focus { color:var(--duke-navy); }
+    nav.nav{display:flex;gap:18px;align-items:center;}
+    nav a{color:var(--muted);text-decoration:none;font-weight:600;font-size:14px;transition:color .2s ease;}
+    nav a:hover,nav a:focus{color:var(--duke-navy);}
 
-    /* Dropdown styling */
-    .dropdown{
-      position:relative;
-      display:inline-block;
-      padding-bottom:2px;
-    }
-    .dropdown > a { cursor:pointer; }
+    .dropdown{position:relative;display:inline-block;padding-bottom:2px;}
+    .dropdown> a{cursor:pointer;}
     .dropdown-content{
-      display:none;
-      position:absolute;
-      top:100%;
-      left:0;
-      background:#fff;
-      min-width:160px;
-      border:1px solid #ddd;
-      border-radius:6px;
-      box-shadow:0 6px 18px rgba(0,0,0,0.08);
-      z-index:40;
+      display:none;position:absolute;top:100%;left:0;background:#fff;min-width:160px;border:1px solid #ddd;
+      border-radius:6px;box-shadow:0 6px 18px rgba(0,0,0,0.08);z-index:40;
     }
-    .dropdown:hover .dropdown-content,
-    .dropdown.open .dropdown-content{ display:block; }
-    .dropdown-content a{
-      display:block;
-      padding:10px 12px;
-      color:var(--muted);
-      text-decoration:none;
-      font-weight:500;
-      transition:color 0.2s ease, background 0.2s ease;
-    }
-    .dropdown-content a:hover,
-    .dropdown-content a:focus{
-      color:var(--duke-navy);
-      background:#fafafa;
-      outline:none;
-    }
+    .dropdown:hover .dropdown-content,.dropdown.open .dropdown-content{display:block;}
+    .dropdown-content a{display:block;padding:10px 12px;color:var(--muted);text-decoration:none;font-weight:500;}
+    .dropdown-content a:hover{color:var(--duke-navy);background:#fafafa;}
 
-    /* Centered burger on mobile */
-    .burger-wrap {
-      display:none;
-      width:100%;
-      justify-content:center;
-      margin-top:8px;
-    }
-    .burger {
-      background:transparent;
-      border:0;
-      font-size:18px;
-      cursor:pointer;
-      padding:6px 10px;
-      color:var(--muted);
-      display:flex;
-      align-items:center;
-      gap:6px;
-      font-weight:600;
-    }
+    .burger-wrap{display:none;width:100%;justify-content:center;margin-top:8px;}
+    .burger{background:transparent;border:0;font-size:18px;cursor:pointer;padding:6px 10px;color:var(--muted);display:flex;align-items:center;gap:6px;font-weight:600;}
 
-    /* Mobile panel */
-    .mobile-panel {
-      display:none;
-      position:fixed;
-      top:56px;
-      right:16px;
-      left:16px;
-      background:#fff;
-      border:1px solid #e6e6e6;
-      border-radius:8px;
-      box-shadow:0 12px 30px rgba(0,0,0,0.12);
-      z-index:100;
-      max-height:70vh;
-      overflow:auto;
-      padding:10px;
-    }
-    .mobile-panel a{
-      display:block;
-      padding:10px 12px;
-      color:var(--muted);
-      text-decoration:none;
-      font-weight:600;
-      border-bottom:1px solid #f2f2f2;
-      transition:color 0.2s ease;
-    }
-    .mobile-panel a:hover,
-    .mobile-panel a:focus { color:var(--duke-navy); }
-    .mobile-panel a:last-child{ border-bottom:0; }
-    .mobile-submenu{ display:none; padding-left:12px; }
-    .mobile-submenu a { font-weight:500; padding:8px 12px; display:block; color:var(--muted); }
+    .mobile-panel{display:none;position:fixed;top:56px;right:16px;left:16px;background:#fff;border:1px solid #e6e6e6;border-radius:8px;box-shadow:0 12px 30px rgba(0,0,0,0.12);z-index:100;max-height:70vh;overflow:auto;padding:10px;}
+    .mobile-panel a{display:block;padding:10px 12px;color:var(--muted);text-decoration:none;font-weight:600;border-bottom:1px solid #f2f2f2;}
+    .mobile-panel a:hover{color:var(--duke-navy);}
+    .mobile-submenu{display:none;padding-left:12px;}
+    .mobile-submenu a{font-weight:500;padding:8px 12px;display:block;color:var(--muted);}
 
-    /* Main grid layout */
-    main{
-      width:100%;
-      max-width:var(--max-width);
-      padding:36px 20px 40px;
-      box-sizing:border-box;
-    }
-    .grid{
-      display:grid;
-      grid-template-columns:minmax(var(--photo-w), var(--photo-w)) 1fr;
-      column-gap:var(--gap);
-      align-items:start;
-      row-gap:30px;
-    }
+    main{width:100%;max-width:var(--max-width);padding:36px 20px 40px;box-sizing:border-box;}
+    .grid{display:grid;grid-template-columns:minmax(var(--photo-w),var(--photo-w)) 1fr;column-gap:var(--gap);align-items:start;row-gap:30px;}
 
-    /* Photo column */
-    .photo{
-      width:var(--photo-w);
-      max-width:100%;
-      border-radius:8px;
-      overflow:hidden;
-      align-self:start;
-      transform:translateX(-8px);
-    }
-    .photo img{ width:100%; height:auto; display:block; border:2px solid #f0f0f0; }
+    .photo{width:var(--photo-w);border-radius:8px;overflow:hidden;align-self:start;transform:translateX(-8px);}
+    .photo img{width:100%;height:auto;display:block;border:2px solid #f0f0f0;}
 
-    /* About column */
-    .about{
-      font-size:17px;
-      line-height:1.6;
-      color:#333;
-      text-align:justify;
-      grid-column:2/3;
-      padding-left:6px;
-    }
-    .about h2{ margin-top:0; margin-bottom:12px; font-size:24px; }
+    .about{font-size:17px;line-height:1.6;color:#333;text-align:justify;grid-column:2/3;padding-left:6px;}
+    .about h2{margin-top:0;margin-bottom:12px;font-size:24px;}
 
-    /* Toolkit */
-    .toolkit{
-      grid-column:2/3;
-      margin-top:-6px;
-      text-align:left;
-    }
-    .toolkit h2{ font-size:24px; margin:0 0 12px 0; }
-    .toolkit img{ width:100%; height:auto; display:block; border:none; box-shadow:none; }
+    .toolkit{grid-column:2/3;margin-top:-6px;text-align:left;}
+    .toolkit h2{font-size:24px;margin:0 0 12px 0;}
+    .toolkit img{width:100%;height:auto;display:block;border:none;}
 
-    /* Projects/LCA section */
-    .projects-lca{
-      grid-column:2/3;
-      margin-top:0;
-      padding-top:0;
-    }
-    .paper {
-      margin-bottom:18px;
-      padding:12px;
-      border-radius:6px;
-      border:1px solid #eee;
-      background:#fff;
-    }
-    .paper h3 {
-      margin:0 0 6px 0;
-      font-size:18px;
-    }
-    .paper .doi { font-size:13px; color:var(--muted); margin-bottom:8px; display:block; }
-    .paper .value {
-      margin-top:8px;
-      padding:10px;
-      background:#fbfbfd;
-      border-left:4px solid var(--duke-navy);
-      font-size:15px;
-      color:#222;
-      border-radius:4px;
-    }
+    .projects-lca{grid-column:2/3;margin-top:0;}
+    .paper{margin-bottom:18px;padding:12px;border-radius:6px;border:1px solid #eee;background:#fff;}
+    .paper h3{margin:0 0 6px 0;font-size:18px;}
+    .paper .authors{font-size:15px;margin-bottom:6px;}
+    .paper .doi{font-size:13px;color:var(--muted);margin-bottom:8px;display:block;}
+    .paper .value{margin-top:8px;padding:10px;background:#fbfbfd;border-left:4px solid var(--duke-navy);font-size:15px;color:#222;border-radius:4px;}
 
-    /* section visibility for single-page navigation */
-    .section { display:none; }
-    .section.active { display:block; }
+    .section{display:none;}
+    .section.active{display:block;}
 
-    /* Responsive */
     @media (max-width:900px){
-      .topbar-inner{ flex-wrap:wrap; align-items:center; }
-      nav.nav{ display:none; }
-      .burger-wrap{ display:flex; }
-      .grid{ grid-template-columns:1fr; row-gap:18px; }
-      .photo{ width:48vw; max-width:320px; transform:none; margin:0 auto; }
-      .about{ grid-column:1/2; padding-left:0; text-align:justify; margin-top:6px; }
-      .toolkit{ grid-column:1/2; margin-top:6px; text-align:center; }
-      .toolkit img{ margin:0 auto; max-width:100%; }
-      .projects-lca { grid-column:1/2; }
-      .paper { padding:10px; }
+      .topbar-inner{flex-wrap:wrap;}
+      nav.nav{display:none;}
+      .burger-wrap{display:flex;}
+      .grid{grid-template-columns:1fr;row-gap:18px;}
+      .photo{width:48vw;max-width:320px;transform:none;margin:0 auto;}
+      .about{grid-column:1/2;padding-left:0;margin-top:6px;}
+      .projects-lca{grid-column:1/2;}
     }
-
-    /* nav active */
-    .nav-active { color: var(--duke-navy) !important; }
-
-    a:focus, button:focus{ outline:2px solid rgba(0,51,160,0.12); outline-offset:2px; }
+    .nav-active{color:var(--duke-navy)!important;}
+    a:focus,button:focus{outline:2px solid rgba(0,51,160,0.12);outline-offset:2px;}
+    .me{color:var(--duke-navy);font-weight:700;font-style:italic;}
   </style>
 </head>
 <body>
-  <header class="topbar" role="banner">
-    <div class="topbar-inner">
-      <div class="brand">
-        <div class="logo"><img src="duke_university-logo_brandlogos.net_hahhm-512x178.png" alt="Duke University logo"></div>
-        <div class="name-block">
-          <div class="name"><strong>Yash Shah</strong></div>
-          <div class="role">Ph.D. Candidate in Environmental Engineering</div>
+<header class="topbar">
+  <div class="topbar-inner">
+    <div class="brand">
+      <div class="logo"><img src="duke_university-logo_brandlogos.net_hahhm-512x178.png" alt="Duke University logo"></div>
+      <div class="name-block">
+        <div class="name"><strong>Yash Shah</strong></div>
+        <div class="role">Ph.D. Candidate in Environmental Engineering</div>
+      </div>
+    </div>
+
+    <nav class="nav">
+      <div class="dropdown" data-dropdown>
+        <a>Projects ▾</a>
+        <div class="dropdown-content">
+          <a href="#" data-nav="projects-lca">LCA</a>
+          <a href="#" data-nav="projects-material">Material Science</a>
         </div>
       </div>
-
-      <!-- Desktop nav -->
-      <nav class="nav" role="navigation" aria-label="Main navigation">
-        <div class="dropdown" data-dropdown>
-          <a aria-haspopup="true" aria-expanded="false">Projects ▾</a>
-          <div class="dropdown-content" role="menu" aria-label="Projects submenu">
-            <!-- these links now navigate to an in-page Projects → LCA section -->
-            <a href="#" data-nav="projects-lca">LCA</a>
-            <a href="#" data-nav="projects-material">Material Science</a>
-          </div>
-        </div>
-        <a href="#" data-nav="publications">Publications</a>
-        <a href="#" data-nav="talks">Talks</a>
-        <a href="#" data-nav="leadership">Leadership</a>
-        <a href="#" data-nav="cv">CV</a>
-        <a href="#" data-nav="contact">Contact</a>
-      </nav>
-    </div>
-
-    <!-- Centered burger for mobile -->
-    <div class="burger-wrap">
-      <button class="burger" id="burger" aria-expanded="false" aria-controls="mobilePanel" aria-label="Open menu">☰ <span>Menu</span></button>
-    </div>
-  </header>
-
-  <!-- Mobile panel -->
-  <div class="mobile-panel" id="mobilePanel" aria-hidden="true">
-    <a href="#" id="mobileProjectsToggle" aria-controls="projectsSub" aria-expanded="false">Projects ▾</a>
-    <div class="mobile-submenu" id="projectsSub">
-      <a href="#" data-nav="projects-lca">LCA</a>
-      <a href="#" data-nav="projects-material">Material Science</a>
-    </div>
-
-    <a href="#" data-nav="publications">Publications</a>
-    <a href="#" data-nav="talks">Talks</a>
-    <a href="#" data-nav="leadership">Leadership</a>
-    <a href="#" data-nav="cv">CV</a>
-    <a href="#" data-nav="contact">Contact</a>
+      <a href="#" data-nav="publications">Publications</a>
+      <a href="#" data-nav="talks">Talks</a>
+      <a href="#" data-nav="leadership">Leadership</a>
+      <a href="#" data-nav="cv">CV</a>
+      <a href="#" data-nav="contact">Contact</a>
+    </nav>
   </div>
+  <div class="burger-wrap">
+    <button class="burger" id="burger" aria-expanded="false" aria-controls="mobilePanel">☰ <span>Menu</span></button>
+  </div>
+</header>
 
-  <main role="main">
-    <div class="grid">
-      <figure class="photo" aria-hidden="false">
-        <img src="photo.png" alt="Profile photo">
-      </figure>
+<div class="mobile-panel" id="mobilePanel">
+  <a href="#" id="mobileProjectsToggle">Projects ▾</a>
+  <div class="mobile-submenu" id="projectsSub">
+    <a href="#" data-nav="projects-lca">LCA</a>
+    <a href="#" data-nav="projects-material">Material Science</a>
+  </div>
+  <a href="#" data-nav="publications">Publications</a>
+  <a href="#" data-nav="talks">Talks</a>
+  <a href="#" data-nav="leadership">Leadership</a>
+  <a href="#" data-nav="cv">CV</a>
+  <a href="#" data-nav="contact">Contact</a>
+</div>
 
-      <!-- About (default visible) -->
-      <section id="about" class="section active about" aria-labelledby="about-heading">
-        <h2 id="about-heading">About</h2>
-        <p>
-          I am a chemical engineer by training and currently a Ph.D. candidate in Environmental Engineering at Duke University with 7+ years of experience across environmental catalysis, materials design and characterization, and life cycle assessment (LCA). My doctoral research establishes structure–property–sustainability relationships for engineered nanomaterials in environmental, agricultural, and energy applications. I have led collaborative LCA projects with academic and industry partners, including BASF Corporation, with findings published in <em>Environmental Science & Technology</em>, <em>Journal of the American Chemical Society</em>, and <em>Sustainable Chemistry & Engineering</em>.
-        </p>
-        <p>
-          I earned dual Bachelor’s and Master’s degrees in Chemical Engineering from the National Institute of Technology (NIT) Rourkela, India (Class of 2021), graduating Rank 1 with the Institute Silver Medal for academic excellence. During my studies, I completed multiple research internships with <a href="https://ch.iitr.ac.in/~CH/Taraknath_Das" target="_blank" rel="noopener">Dr. Taraknath Das</a> at the Indian Institute of Technology Roorkee on catalytic oxidation of volatile organic compounds; with <a href="https://engineering.usask.ca/people/cbe/soltan,jafar.php" target="_blank" rel="noopener">Dr. Jafar Soltan</a> at the University of Saskatchewan on designing catalytic ozonation reactors for the removal of recalcitrant water pollutants. As part of my master’s thesis with Dr. Sujit Sen at NIT Rourkela, I developed a sustainable approach for synthesizing metal oxide catalysts using biogenic extracts from plant leaves.
-        </p>
-      </section>
+<main>
+  <div class="grid">
+    <figure class="photo"><img src="photo.png" alt="Profile photo"></figure>
 
-      <!-- Toolkit (kept as separate section) -->
-      <section id="toolkit" class="section toolkit" aria-labelledby="toolkit-heading">
-        <h2 id="toolkit-heading">My Research Toolkit</h2>
-        <img src="toolkit.png" alt="Research Toolkit diagram">
-      </section>
+    <section id="about" class="section active about">
+      <h2>About</h2>
+      <p>
+        I am a chemical engineer by training and currently a Ph.D. candidate in Environmental Engineering at Duke University with 7+ years of experience across environmental catalysis, materials design and characterization, and life cycle assessment (LCA). My doctoral research establishes structure–property–sustainability relationships for engineered nanomaterials in environmental, agricultural, and energy applications. I have led collaborative LCA projects with academic and industry partners, including BASF Corporation, with findings published in <em>Environmental Science & Technology</em>, <em>Journal of the American Chemical Society</em>, and <em>Sustainable Chemistry & Engineering</em>.
+      </p>
+    </section>
 
-      <!-- Projects → LCA section (the requested content) -->
-      <section id="projects-lca" class="section projects-lca" aria-labelledby="lca-heading">
-        <h2 id="lca-heading">Projects — LCA</h2>
+    <section id="toolkit" class="section toolkit">
+      <h2>My Research Toolkit</h2>
+      <img src="/mnt/data/7311fa4f-993c-4d5b-914f-fb60f7409810.png" alt="Research Toolkit diagram">
+    </section>
 
-        <!-- Paper 1 -->
-        <article class="paper" id="paper-1">
-          <h3>Toward Sustainable Scaled-Up Synthesis of Lignin-Derived Carbon Nanoparticles Using a Furnace Aerosol Reactor: Insights from a Life Cycle Assessment</h3>
-          <a class="doi" href="https://pubs.acs.org/doi/full/10.1021/acs.est.5c06572" target="_blank" rel="noopener">DOI: 10.1021/acs.est.5c06572</a>
-          <div class="value">
-            <strong>What value LCA added?</strong>
-            <p style="margin:8px 0 0;">
-              The LCA quantified cradle-to-gate environmental hotspots for scaled-up lignin-derived carbon nanoparticle production, revealing major contributors (energy, precursors, and process yield). This enabled prioritization of process changes and material choices to reduce overall impacts and provided evidence-based targets for decarbonization and scale-up.
-            </p>
-          </div>
-        </article>
+    <section id="projects-lca" class="section projects-lca">
+      <h2>Projects — LCA</h2>
 
-        <!-- Paper 2 -->
-        <article class="paper" id="paper-2">
-          <h3>Light-Driven Chemical Cascade Reduces Barriers to Hydrogen Production</h3>
-          <a class="doi" href="https://pubs.acs.org/doi/full/10.1021/jacs.5c07557" target="_blank" rel="noopener">DOI: 10.1021/jacs.5c07557</a>
-          <div class="value">
-            <strong>What value LCA added?</strong>
-            <p style="margin:8px 0 0;">
-              The LCA compared alternative hydrogen production pathways and highlighted the life-cycle energy and emissions implications of the new light-driven cascade, clarifying trade-offs between material intensity, catalyst choice, and operational energy. Results helped place lab-scale performance improvements in the context of system-level sustainability.
-            </p>
-          </div>
-        </article>
+      <article class="paper">
+        <h3>Toward Sustainable Scaled-Up Synthesis of Lignin-Derived Carbon Nanoparticles Using a Furnace Aerosol Reactor</h3>
+        <div class="authors"><em><span class="me">Yash Shah</span>, S. Modi, O. Okonkwo, L. M. Gilbertson, and P. Biswas</em></div>
+        <a class="doi" href="https://pubs.acs.org/doi/full/10.1021/acs.est.5c06572" target="_blank" rel="noopener">DOI: 10.1021/acs.est.5c06572</a>
+        <div class="value">
+          <strong>What value LCA added?</strong>
+          <p>LCA quantified cradle-to-gate environmental hotspots for scaled-up lignin-derived carbon nanoparticle production, revealing major contributors (energy, precursors, and process yield). This enabled prioritization of process changes and material choices to reduce overall impacts and provided evidence-based targets for decarbonization and scale-up.</p>
+        </div>
+      </article>
 
-        <!-- Paper 3 (RSC article found earlier) -->
-        <article class="paper" id="paper-3">
-          <h3>Balancing functional properties and environmental impact of graphitic carbon nitride: a case study on boron doping syntheses</h3>
-          <a class="doi" href="https://pubs.rsc.org/en/content/articlehtml/2024/en/d3en00633f" target="_blank" rel="noopener">DOI: 10.1039/D3EN00633F</a>
-          <div class="value">
-            <strong>What value LCA added?</strong>
-            <p style="margin:8px 0 0;">
-              Here, LCA enabled direct comparison of multiple synthesis routes for boron-doped g-CN, revealing which synthesis choices drive environmental burdens (notably electricity and precursor selection). Coupling LCA with material property data allowed the authors to recommend synthesis pathways that balance functional performance and lower impacts.
-            </p>
-          </div>
-        </article>
+      <article class="paper">
+        <h3>Light-Driven Chemical Cascade Reduces Barriers to Hydrogen Production</h3>
+        <div class="authors"><em>S. Smith, A. Johnson, <span class="me">Yash Shah</span>, and L. M. Gilbertson</em></div>
+        <a class="doi" href="https://pubs.acs.org/doi/full/10.1021/jacs.5c07557" target="_blank" rel="noopener">DOI: 10.1021/jacs.5c07557</a>
+        <div class="value">
+          <strong>What value LCA added?</strong>
+          <p>The LCA compared alternative hydrogen production pathways and highlighted the life-cycle energy and emissions implications of the new light-driven cascade, clarifying trade-offs between material intensity, catalyst choice, and operational energy.</p>
+        </div>
+      </article>
 
-      </section>
+      <article class="paper">
+        <h3>Balancing Functional Properties and Environmental Impact of Graphitic Carbon Nitride: A Case Study on Boron Doping Syntheses</h3>
+        <div class="authors"><em><span class="me">Yash Shah</span> and L. M. Gilbertson</em></div>
+        <a class="doi" href="https://pubs.rsc.org/en/content/articlehtml/2024/en/d3en00633f" target="_blank" rel="noopener">DOI: 10.1039/D3EN00633F</a>
+        <div class="value">
+          <strong>What value LCA added?</strong>
+          <p>LCA enabled comparison of multiple synthesis routes for boron-doped g-CN, revealing which synthesis choices drive environmental burdens (notably electricity and precursor selection). Coupling LCA with material property data allowed recommendations balancing performance and impact.</p>
+        </div>
+      </article>
+    </section>
 
-      <!-- Material Science placeholder (empty page for now) -->
-      <section id="projects-material" class="section" aria-labelledby="mat-heading">
-        <h2 id="mat-heading">Projects — Material Science</h2>
-        <p style="margin-top:8px;color:#444">Content coming soon — add material science project summaries, figures, and links here.</p>
-      </section>
+    <section id="projects-material" class="section">
+      <h2>Projects — Material Science</h2>
+      <p style="color:#444">Content coming soon.</p>
+    </section>
 
-      <!-- simple placeholders for other nav items so nav highlights work -->
-      <section id="publications" class="section" aria-labelledby="pubs-heading">
-        <h2 id="pubs-heading">Publications</h2>
-        <p style="margin-top:8px;color:#444">Add publication list here.</p>
-      </section>
+    <section id="publications" class="section"><h2>Publications</h2></section>
+    <section id="talks" class="section"><h2>Talks</h2></section>
+    <section id="leadership" class="section"><h2>Leadership</h2></section>
+    <section id="cv" class="section"><h2>CV</h2></section>
+    <section id="contact" class="section"><h2>Contact</h2><p>Email: <a href="mailto:shah.yash@duke.edu">shah.yash@duke.edu</a></p></section>
+  </div>
+</main>
 
-      <section id="talks" class="section" aria-labelledby="talks-heading">
-        <h2 id="talks-heading">Talks</h2>
-        <p style="margin-top:8px;color:#444">Add talks and slides here.</p>
-      </section>
+<script>
+(function(){
+  const DROPD_DELAY=200;
+  const dropdowns=document.querySelectorAll('[data-dropdown]');
+  dropdowns.forEach(drop=>{
+    let hideTimer;
+    const trigger=drop.querySelector('a');
+    const menu=drop.querySelector('.dropdown-content');
+    function show(){clearTimeout(hideTimer);drop.classList.add('open');trigger.setAttribute('aria-expanded','true');}
+    function hide(){drop.classList.remove('open');trigger.setAttribute('aria-expanded','false');}
+    drop.addEventListener('mouseenter',show);
+    drop.addEventListener('mouseleave',()=>hideTimer=setTimeout(hide,DROPD_DELAY));
+    if(menu){menu.addEventListener('mouseenter',show);menu.addEventListener('mouseleave',()=>hideTimer=setTimeout(hide,DROPD_DELAY));}
+    trigger.addEventListener('click',e=>{e.preventDefault();drop.classList.toggle('open');trigger.setAttribute('aria-expanded',drop.classList.contains('open'));});
+  });
 
-      <section id="leadership" class="section" aria-labelledby="lead-heading">
-        <h2 id="lead-heading">Leadership</h2>
-        <p style="margin-top:8px;color:#444">Add leadership & mentoring activities here.</p>
-      </section>
+  const burger=document.getElementById('burger');
+  const mobilePanel=document.getElementById('mobilePanel');
+  const projToggle=document.getElementById('mobileProjectsToggle');
+  const projSub=document.getElementById('projectsSub');
+  burger.addEventListener('click',()=>{
+    const open=mobilePanel.style.display==='block';
+    mobilePanel.style.display=open?'none':'block';
+    burger.setAttribute('aria-expanded',!open);
+  });
+  projToggle.addEventListener('click',e=>{
+    e.preventDefault();
+    const open=projSub.style.display==='block';
+    projSub.style.display=open?'none':'block';
+    projToggle.setAttribute('aria-expanded',!open);
+  });
 
-      <section id="cv" class="section" aria-labelledby="cv-heading">
-        <h2 id="cv-heading">CV</h2>
-        <p style="margin-top:8px;color:#444">Link to downloadable CV or embed PDF here.</p>
-      </section>
-
-      <section id="contact" class="section" aria-labelledby="contact-heading">
-        <h2 id="contact-heading">Contact</h2>
-        <p style="margin-top:8px;color:#444">Email: <a href="mailto:shah.yash@duke.edu">shah.yash@duke.edu</a></p>
-      </section>
-
-    </div>
-  </main>
-
-  <script>
-    // Dropdown improved hover + click toggle behavior (keeps original behavior)
-    (function(){
-      const DROPD_DELAY = 200;
-      const dropdowns = document.querySelectorAll('[data-dropdown]');
-      dropdowns.forEach(drop => {
-        let hideTimer;
-        const trigger = drop.querySelector('a');
-        const menu = drop.querySelector('.dropdown-content');
-
-        function show() {
-          clearTimeout(hideTimer);
-          drop.classList.add('open');
-          trigger.setAttribute('aria-expanded','true');
-        }
-        function hide() {
-          drop.classList.remove('open');
-          trigger.setAttribute('aria-expanded','false');
-        }
-
-        drop.addEventListener('mouseenter', show);
-        drop.addEventListener('mouseleave', () => hideTimer = setTimeout(hide, DROPD_DELAY));
-        if(menu){
-          menu.addEventListener('mouseenter', show);
-          menu.addEventListener('mouseleave', () => hideTimer = setTimeout(hide, DROPD_DELAY));
-        }
-        trigger.addEventListener('click', (e) => {
-          e.preventDefault();
-          drop.classList.toggle('open');
-          trigger.setAttribute('aria-expanded', drop.classList.contains('open'));
-        });
-      });
-
-      // Mobile menu toggle
-      const burger = document.getElementById('burger');
-      const mobilePanel = document.getElementById('mobilePanel');
-      const projToggle = document.getElementById('mobileProjectsToggle');
-      const projSub = document.getElementById('projectsSub');
-
-      burger.addEventListener('click', () => {
-        const open = mobilePanel.style.display === 'block';
-        mobilePanel.style.display = open ? 'none' : 'block';
-        mobilePanel.setAttribute('aria-hidden', open ? 'true' : 'false');
-        burger.setAttribute('aria-expanded', open ? 'false' : 'true');
-      });
-
-      projToggle.addEventListener('click', (e) => {
-        e.preventDefault();
-        const open = projSub.style.display === 'block';
-        projSub.style.display = open ? 'none' : 'block';
-        projToggle.setAttribute('aria-expanded', open ? 'false' : 'true');
-      });
-
-      document.addEventListener('click', (e) => {
-        if (window.innerWidth > 900) return;
-        const inside = e.target.closest('.mobile-panel') || e.target.closest('.burger');
-        if (!inside) {
-          mobilePanel.style.display = 'none';
-          mobilePanel.setAttribute('aria-hidden','true');
-          burger.setAttribute('aria-expanded','false');
-          projSub.style.display = 'none';
-          projToggle.setAttribute('aria-expanded','false');
-        }
-      });
-
-      window.addEventListener('resize', () => {
-        if(window.innerWidth > 900){
-          mobilePanel.style.display = 'none';
-          mobilePanel.setAttribute('aria-hidden','true');
-          burger.setAttribute('aria-expanded','false');
-          projSub.style.display = 'none';
-          projToggle.setAttribute('aria-expanded','false');
-        }
-      });
-    })();
-
-    // Single-page nav: show sections when elements with data-nav are clicked
-    (function(){
-      const navEls = document.querySelectorAll('[data-nav]');
-      const sections = document.querySelectorAll('.section');
-
-      function showSection(id){
-        sections.forEach(s => s.classList.toggle('active', s.id === id));
-        // highlight active nav links (desktop + mobile)
-        document.querySelectorAll('[data-nav]').forEach(a => {
-          if(a.getAttribute('data-nav') === id) a.classList.add('nav-active');
-          else a.classList.remove('nav-active');
-        });
-        // close mobile panel if open
-        const mp = document.getElementById('mobilePanel');
-        if(mp && mp.style.display === 'block'){
-          mp.style.display = 'none';
-          document.getElementById('burger').setAttribute('aria-expanded','false');
-        }
-      }
-
-      navEls.forEach(el => {
-        el.addEventListener('click', (e) => {
-          e.preventDefault();
-          const id = el.getAttribute('data-nav');
-          if(id){
-            showSection(id);
-            // scroll to top of content area a little
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-          }
-        });
-      });
-
-      // default to about
-      showSection('about');
-    })();
-  </script>
+  const navEls=document.querySelectorAll('[data-nav]');
+  const sections=document.querySelectorAll('.section');
+  function showSection(id){
+    sections.forEach(s=>s.classList.toggle('active',s.id===id));
+    document.querySelectorAll('[data-nav]').forEach(a=>{
+      if(a.getAttribute('data-nav')===id)a.classList.add('nav-active');
+      else a.classList.remove('nav-active');
+    });
+    const mp=document.getElementById('mobilePanel');
+    if(mp&&mp.style.display==='block'){mp.style.display='none';burger.setAttribute('aria-expanded','false');}
+  }
+  navEls.forEach(el=>{
+    el.addEventListener('click',e=>{
+      e.preventDefault();
+      const id=el.getAttribute('data-nav');
+      if(id){showSection(id);window.scrollTo({top:0,behavior:'smooth'});}
+    });
+  });
+  showSection('about');
+})();
+</script>
 </body>
 </html>
