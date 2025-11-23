@@ -14,7 +14,6 @@
       --img-w:140px;
     }
 
-    /* Global */
     body{
       margin:0;
       font-family:"Helvetica Neue", Arial, sans-serif;
@@ -24,108 +23,90 @@
       -moz-osx-font-smoothing:grayscale;
     }
 
-    /* Topbar (matches index.html) */
-    .topbar{ width:100%; background:var(--bar-bg); border-bottom:1px solid #e6e6e6; }
+    /* Topbar (same as index.html) */
+    .topbar{width:100%;background:var(--bar-bg);border-bottom:1px solid #e6e6e6;}
     .topbar-inner{
-      max-width:var(--max-width);
-      width:100%;
-      margin:0 auto;
-      padding:12px 20px;
-      box-sizing:border-box;
-      display:flex;
-      align-items:flex-end; /* keeps role baseline aligned with logo bottom */
-      justify-content:space-between;
-      gap:12px;
+      max-width:var(--max-width);width:100%;margin:0 auto;padding:12px 20px;
+      display:flex;align-items:flex-end;justify-content:space-between;gap:12px;box-sizing:border-box;
     }
-    .brand { display:flex; align-items:flex-end; gap:12px; cursor:pointer; }
-    .logo img { height:32px; width:auto; display:block; }
-    .name-block{ display:flex; flex-direction:column; line-height:1.15; }
-    .name{ font-weight:700; font-size:16px; margin:0; }
-    .role{ font-size:13px; color:var(--muted); margin-top:2px; }
+    .brand{display:flex;align-items:flex-end;gap:12px;cursor:pointer;}
+    .logo img{height:32px;width:auto;display:block;}
+    .name-block{display:flex;flex-direction:column;line-height:1.15;}
+    .name{font-weight:700;font-size:16px;margin:0;}
+    .role{font-size:13px;color:var(--muted);margin-top:2px;}
 
-    /* Navigation (same sizing and spacing as index.html) */
-    nav a{ color:var(--muted); text-decoration:none; font-weight:600; font-size:14px; margin-left:14px; transition:color .2s ease; }
-    nav a:hover, nav a:focus { color:var(--duke-navy); }
+    nav.nav{display:flex;gap:18px;align-items:center;}
+    nav a{color:var(--muted);text-decoration:none;font-weight:600;font-size:14px;transition:color .2s ease;}
+    nav a:hover,nav a:focus{color:var(--duke-navy);}
 
-    /* Page body */
-    main{ max-width:var(--max-width); margin:30px auto; padding:0 20px 80px; box-sizing:border-box; }
-    .hero{ display:flex; gap:20px; align-items:center; margin-bottom:22px; }
-    .hero .back { color:var(--duke-navy); text-decoration:none; font-weight:700; }
-    .hero h1{ margin:0; font-size:26px; }
-    .intro{ color:#444; margin-bottom:18px; line-height:1.6; }
-
-    /* Paper rows: image left, content right */
-    .paper-row{
-      display:grid;
-      grid-template-columns: var(--img-w) 1fr;
-      gap:18px;
-      align-items:start;
-      margin-bottom:20px;
-      padding:12px;
-      border:1px solid #eee;
-      border-radius:8px;
-      background:#fff;
+    .dropdown{position:relative;display:inline-block;padding-bottom:2px;}
+    .dropdown> a{cursor:pointer;}
+    .dropdown-content{
+      display:none;position:absolute;top:100%;left:0;background:#fff;min-width:160px;border:1px solid #ddd;
+      border-radius:6px;box-shadow:0 6px 18px rgba(0,0,0,0.08);z-index:40;
     }
-    .paper-row img{
-      width:var(--img-w);
-      height:auto;
-      display:block;
-      border-radius:6px;
-      object-fit:cover;
-    }
-    .paper-row h2{ margin:0 0 8px 0; font-size:18px; }
-    .paper-row .authors{ font-style:italic; color:#333; margin-bottom:8px; }
-    .paper-row .doi{ display:inline-block; color:var(--muted); font-size:13px; margin-bottom:8px; text-decoration:none; }
-    .paper-row .doi:hover{ color:var(--duke-navy); }
+    .dropdown:hover .dropdown-content,.dropdown.open .dropdown-content{display:block;}
+    .dropdown-content a{display:block;padding:10px 12px;color:var(--muted);text-decoration:none;font-weight:500;}
+    .dropdown-content a:hover{color:var(--duke-navy);background:#fafafa;}
 
-    .paper-row .value{
-      margin-top:8px;
-      padding:12px;
-      background:#fbfbfd;
-      border-left:4px solid var(--duke-navy);
-      border-radius:4px;
-      line-height:1.5;
-    }
+    main{max-width:var(--max-width);margin:30px auto;padding:0 20px 80px;box-sizing:border-box;}
+    .hero{display:flex;gap:20px;align-items:center;margin-bottom:22px;}
+    .hero .back{color:var(--duke-navy);text-decoration:none;font-weight:700;}
+    .hero h1{margin:0;font-size:26px;}
+    .intro{color:#444;margin-bottom:18px;line-height:1.6;}
 
-    footer{ max-width:var(--max-width); margin:40px auto; padding:0 20px 40px; color:var(--muted); font-size:14px; text-align:left; }
+    .paper-row{display:grid;grid-template-columns:var(--img-w) 1fr;gap:18px;align-items:start;margin-bottom:20px;padding:12px;border:1px solid #eee;border-radius:8px;background:#fff;}
+    .paper-row img{width:var(--img-w);height:auto;display:block;border-radius:6px;object-fit:cover;}
+    .paper-row h2{margin:0 0 8px 0;font-size:18px;}
+    .paper-row .authors{font-style:italic;color:#333;margin-bottom:8px;}
+    .paper-row .doi{display:inline-block;color:var(--muted);font-size:13px;margin-bottom:8px;text-decoration:none;}
+    .paper-row .doi:hover{color:var(--duke-navy);}
+    .paper-row .value{margin-top:8px;padding:12px;background:#fbfbfd;border-left:4px solid var(--duke-navy);border-radius:4px;line-height:1.5;}
 
-    .me { color:var(--duke-navy); font-weight:700; font-style:italic; }
+    footer{max-width:var(--max-width);margin:40px auto;padding:0 20px 40px;color:var(--muted);font-size:14px;text-align:left;}
+    .me{color:var(--duke-navy);font-weight:700;font-style:italic;}
 
     @media (max-width:900px){
-      .topbar-inner{ padding:10px 14px; }
-      .paper-row{ grid-template-columns: 1fr; }
-      .paper-row img{ width:100%; max-height:220px; margin-bottom:12px; }
-      .hero{ flex-direction:column; align-items:flex-start; gap:8px; }
+      .topbar-inner{padding:10px 14px;}
+      .paper-row{grid-template-columns:1fr;}
+      .paper-row img{width:100%;max-height:220px;margin-bottom:12px;}
+      .hero{flex-direction:column;align-items:flex-start;gap:8px;}
     }
 
-    a:focus{ outline:2px solid rgba(0,51,160,0.12); outline-offset:2px; }
+    a:focus{outline:2px solid rgba(0,51,160,0.12);outline-offset:2px;}
   </style>
 </head>
 <body>
   <header class="topbar" role="banner">
     <div class="topbar-inner">
-      <div class="brand" id="brandHome">
+      <div class="brand" onclick="location.href='/'">
         <div class="logo"><img src="duke_university-logo_brandlogos.net_hahhm-512x178.png" alt="Duke University logo"></div>
         <div class="name-block">
-          <div class="name">Yash Shah</div>
+          <div class="name"><strong>Yash Shah</strong></div>
           <div class="role">Ph.D. Candidate in Environmental Engineering</div>
         </div>
       </div>
 
-      <nav aria-label="Top navigation">
-        <a href="/" title="Home">Home</a>
-        <a href="/MaterialScience" title="Material Science">Material Science</a>
-        <a href="/Talks" title="Talks">Talks</a>
-        <a href="/Leadership" title="Leadership">Leadership</a>
-        <a href="/CV" title="CV">CV</a>
-        <a href="/Contact" title="Contact">Contact</a>
+      <!-- 🔹 Keep same Publications dropdown menu as homepage -->
+      <nav class="nav">
+        <div class="dropdown" data-dropdown>
+          <a>Publications ▾</a>
+          <div class="dropdown-content">
+            <a href="/LCA">LCA</a>
+            <a href="/MaterialScience">Material Science</a>
+          </div>
+        </div>
+        <a href="/Talks">Talks</a>
+        <a href="/Leadership">Leadership</a>
+        <a href="/CV">CV</a>
+        <a href="/Contact">Contact</a>
       </nav>
     </div>
   </header>
 
   <main role="main">
     <div class="hero">
-      <a class="back" href="/" title="Back to home">← Home</a>
+      <a class="back" href="/">← Home</a>
       <h1>Publications — LCA-related papers</h1>
     </div>
 
@@ -135,51 +116,42 @@
 
     <!-- Paper 1 -->
     <article class="paper-row" id="paper-1">
-      <img src="LCA1.jpeg" alt="LCA image 1">
+      <img src="/mnt/data/LCA1.jpeg" alt="LCA image 1">
       <div>
         <h2>Toward Sustainable Scaled-Up Synthesis of Lignin-Derived Carbon Nanoparticles Using a Furnace Aerosol Reactor</h2>
         <div class="authors"><em>S. Modi, <span class="me">Yash Shah</span>, O. Okonkwo, L. M. Gilbertson, and P. Biswas</em></div>
         <a class="doi" href="https://pubs.acs.org/doi/full/10.1021/acs.est.5c06572" target="_blank" rel="noopener">DOI: 10.1021/acs.est.5c06572</a>
-
         <div class="value">
           <strong>What value LCA added?</strong>
-          <p>
-            LCA quantified cradle-to-gate environmental hotspots for scaled-up lignin-derived carbon nanoparticle production, identifying energy use, precursor sourcing, and material yield as dominant contributors. This evidence led to prioritization of process interventions (e.g., energy source switching and yield improvements) and guided scale-up decisions with quantified impact reductions.
-          </p>
+          <p>LCA quantified cradle-to-gate environmental hotspots for scaled-up lignin-derived carbon nanoparticle production, identifying energy use, precursor sourcing, and material yield as dominant contributors. This evidence led to prioritization of process interventions and guided scale-up decisions with quantified impact reductions.</p>
         </div>
       </div>
     </article>
 
     <!-- Paper 2 -->
     <article class="paper-row" id="paper-2">
-      <img src="LCA2.jpeg" alt="LCA image 2">
+      <img src="/mnt/data/LCA2.jpeg" alt="LCA image 2">
       <div>
         <h2>Light-Driven Chemical Cascade Reduces Barriers to Hydrogen Production</h2>
         <div class="authors"><em>V. R. Battula, G. Mark, M. S. Naeem, <span class="me">Yash Shah</span>, M. Volokh, L. M. Gilbertson, N. López, and M. Shalom</em></div>
         <a class="doi" href="https://pubs.acs.org/doi/full/10.1021/jacs.5c07557" target="_blank" rel="noopener">DOI: 10.1021/jacs.5c07557</a>
-
         <div class="value">
           <strong>What value LCA added?</strong>
-          <p>
-            The LCA placed laboratory-scale advances for light-driven hydrogen production into a systems context and compared alternative pathways. It clarified trade-offs between material and catalyst intensity and lifecycle energy/emissions, informing choices for pathway selection and priorities during scale-up.
-          </p>
+          <p>The LCA placed laboratory-scale advances for light-driven hydrogen production into a systems context and compared alternative pathways. It clarified trade-offs between material and catalyst intensity and lifecycle energy/emissions, informing choices for pathway selection and priorities during scale-up.</p>
         </div>
       </div>
     </article>
 
     <!-- Paper 3 -->
     <article class="paper-row" id="paper-3">
-      <img src="LCA3.png" alt="LCA image 3">
+      <img src="/mnt/data/LCA3.png" alt="LCA image 3">
       <div>
         <h2>Balancing Functional Properties and Environmental Impact of Graphitic Carbon Nitride: A Case Study on Boron Doping Syntheses</h2>
         <div class="authors"><em><span class="me">Yash Shah</span> and L. M. Gilbertson</em></div>
         <a class="doi" href="https://pubs.rsc.org/en/content/articlehtml/2024/en/d3en00633f" target="_blank" rel="noopener">DOI: 10.1039/D3EN00633F</a>
-
         <div class="value">
           <strong>What value LCA added?</strong>
-          <p>
-            LCA enabled direct comparison between multiple synthesis routes for boron-doped graphitic carbon nitride. By quantifying electricity and precursor impacts and coupling environmental burdens to material performance, the study recommended synthesis options that balance desired functionality with lower lifecycle impacts.
-          </p>
+          <p>LCA enabled direct comparison between multiple synthesis routes for boron-doped graphitic carbon nitride. By quantifying electricity and precursor impacts and coupling environmental burdens to material performance, the study recommended synthesis options that balance functionality with lower lifecycle impacts.</p>
         </div>
       </div>
     </article>
@@ -193,13 +165,11 @@
   </footer>
 
   <script>
-    // set footer year
+    // Footer year
     document.getElementById('year').textContent = new Date().getFullYear();
 
-    // clicking brand returns to home
-    document.getElementById('brandHome')?.addEventListener('click', function(){
-      window.location.href = '/';
-    });
+    // Clicking logo returns to home
+    document.querySelector('.brand').addEventListener('click',()=>window.location.href='/');
   </script>
 </body>
 </html>
