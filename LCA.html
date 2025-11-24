@@ -94,14 +94,14 @@
     .paper-row .doi{display:inline-block;color:var(--muted);font-size:13px;margin-bottom:8px;text-decoration:none;}
     .paper-row .doi:hover{color:var(--duke-navy);}
     .paper-row .value{
-      margin-top:4px;
-      padding:10px;
+      margin-top:6px; /* tightened */
+      padding:8px;    /* slightly smaller */
       background:#fbfbfd;
       border-left:4px solid var(--duke-navy);
       border-radius:4px;
       line-height:1.45;
     }
-    .paper-row .value strong{display:block;margin-bottom:2px;}
+    .paper-row .value strong{display:block;margin-bottom:4px;}
 
     footer{max-width:var(--max-width);margin:40px auto;padding:0 20px 40px;color:var(--muted);font-size:14px;text-align:left;}
     .me{color:var(--duke-navy);font-weight:700;font-style:italic;}
@@ -173,6 +173,7 @@
     </p>
 
     <article class="paper-row">
+      <!-- local uploaded path used below -->
       <img src="LCA1.jpeg" alt="LCA image 1">
       <div>
         <h2>Toward Sustainable Scaled-Up Synthesis of Lignin-Derived Carbon Nanoparticles Using a Furnace Aerosol Reactor</h2>
@@ -219,27 +220,47 @@
   </footer>
 
   <script>
+    // footer year
     document.getElementById('year').textContent = new Date().getFullYear();
 
-    // desktop dropdown hover + click
     (function(){
       const DROPD_DELAY = 200;
+
+      // --- Desktop dropdown (hover + click, keeps open while moving between trigger and menu) ---
       document.querySelectorAll('[data-dropdown]').forEach(drop=>{
         let hideTimer;
-        const trigger = drop.querySelector('a');
+        const trigger = drop.querySelector(':scope > a'); // top-level anchor only
         const menu = drop.querySelector('.dropdown-content');
-        function show(){ clearTimeout(hideTimer); drop.classList.add('open'); trigger.setAttribute('aria-expanded','true'); }
-        function hide(){ drop.classList.remove('open'); trigger.setAttribute('aria-expanded','false'); }
+        if(!trigger || !menu) return;
+
+        function show(){
+          clearTimeout(hideTimer);
+          drop.classList.add('open');
+          trigger.setAttribute('aria-expanded','true');
+          menu.style.display = 'block';
+        }
+        function hide(){
+          drop.classList.remove('open');
+          trigger.setAttribute('aria-expanded','false');
+          menu.style.display = '';
+        }
+
         drop.addEventListener('mouseenter', show);
         drop.addEventListener('mouseleave', ()=> hideTimer = setTimeout(hide, DROPD_DELAY) );
-        if(menu){
-          menu.addEventListener('mouseenter', show);
-          menu.addEventListener('mouseleave', ()=> hideTimer = setTimeout(hide, DROPD_DELAY) );
-        }
-        trigger.addEventListener('click', (e)=>{ e.preventDefault(); drop.classList.toggle('open'); });
+        menu.addEventListener('mouseenter', show);
+        menu.addEventListener('mouseleave', ()=> hideTimer = setTimeout(hide, DROPD_DELAY) );
+
+        trigger.addEventListener('click', (e)=>{ e.preventDefault(); const open = drop.classList.contains('open'); if(open) hide(); else show(); });
+
+        // close if clicking outside
+        document.addEventListener('click', (ev)=>{
+          if(!drop.contains(ev.target)) hide();
+        });
+        // close on Escape
+        document.addEventListener('keydown', (ev)=>{ if(ev.key === 'Escape') hide(); });
       });
 
-      // mobile menu logic
+      // --- Mobile menu toggle ---
       const burger = document.getElementById('burger');
       const mobilePanel = document.getElementById('mobilePanel');
       const projectsToggle = document.getElementById('mobileProjectsToggle');
@@ -259,7 +280,7 @@
         projectsSub.style.display = open ? 'none' : 'block';
       });
 
-      // close when clicking outside
+      // close mobile panel when clicking outside
       document.addEventListener('click', (e) => {
         if (window.innerWidth > 900) return;
         const inside = e.target.closest('.mobile-panel') || e.target.closest('.burger');
