@@ -33,19 +33,50 @@
     .name{font-weight:700;font-size:16px;margin:0;}
     .role{font-size:13px;color:var(--muted);margin-top:2px;}
 
+    /* Desktop nav */
     nav.nav{display:flex;gap:18px;align-items:center;}
     nav a{color:var(--muted);text-decoration:none;font-weight:600;font-size:14px;transition:color .2s ease;}
     nav a:hover,nav a:focus{color:var(--duke-navy);}
 
     .dropdown{position:relative;display:inline-block;padding-bottom:2px;}
-    .dropdown> a{cursor:pointer;}
+    .dropdown> a{cursor:pointer;user-select:none;}
     .dropdown-content{
-      display:none;position:absolute;top:100%;left:0;background:#fff;min-width:160px;border:1px solid #ddd;
+      display:none;position:absolute;top:calc(100% + 6px);left:0;background:#fff;min-width:160px;border:1px solid #ddd;
       border-radius:6px;box-shadow:0 6px 18px rgba(0,0,0,0.08);z-index:40;
     }
-    .dropdown:hover .dropdown-content,.dropdown.open .dropdown-content{display:block;}
     .dropdown-content a{display:block;padding:10px 12px;color:var(--muted);text-decoration:none;font-weight:500;}
     .dropdown-content a:hover{color:var(--duke-navy);background:#fafafa;}
+
+    /* Mobile nav */
+    .burger-wrap{display:none;width:100%;justify-content:center;margin-top:6px;}
+    .burger{
+      background:transparent;border:0;font-size:16px;cursor:pointer;padding:8px 12px;color:var(--muted);
+      display:flex;align-items:center;gap:8px;font-weight:700;
+    }
+    .mobile-panel{
+      display:none;
+      position:fixed;
+      top:62px;right:12px;left:12px;
+      background:#fff;
+      border:1px solid #e6e6e6;
+      border-radius:8px;
+      box-shadow:0 12px 30px rgba(0,0,0,0.12);
+      z-index:200;
+      max-height:70vh;
+      overflow:auto;
+      padding:8px;
+    }
+    .mobile-panel a{
+      display:block;
+      padding:10px 12px;
+      color:var(--muted);
+      text-decoration:none;
+      font-weight:600;
+      border-bottom:1px solid #f2f2f2;
+    }
+    .mobile-panel a:hover{color:var(--duke-navy);}
+    .mobile-submenu{display:none;padding-left:12px;background:#fafafa;}
+    .mobile-submenu a{font-weight:500;padding:8px 12px;display:block;color:var(--muted);}
 
     main{
       max-width:var(--max-width);
@@ -87,6 +118,7 @@
       margin:4px 0;
       color:var(--muted);
       font-size:15px;
+      word-break:break-word;
     }
 
     .icons{
@@ -95,6 +127,7 @@
       gap:16px;
       justify-content:center;
       align-items:center;
+      flex-wrap:wrap;
     }
 
     .icons a{
@@ -122,6 +155,12 @@
       text-align:center;
     }
 
+    @media (max-width:900px){
+      .topbar-inner{flex-wrap:wrap;}
+      nav.nav{display:none;}
+      .burger-wrap{display:flex;}
+      main{margin:28px auto;padding:0 14px 40px;}
+    }
     @media (max-width:520px){
       .contact-card{padding:20px;}
       .contact-card img.photo{width:140px;}
@@ -141,6 +180,7 @@
         </div>
       </div>
 
+      <!-- Desktop nav -->
       <nav class="nav" aria-label="Main navigation">
         <div class="dropdown" data-dropdown>
           <a>Publications ▾</a>
@@ -151,15 +191,34 @@
         </div>
         <a href="/Talks">Talks</a>
         <a href="/Leadership">Leadership</a>
-        <a href="/CV_Shah_Research.pdf" target="_blank" rel="noopener">CV</a>
+        <a href="CV_Shah_Research.pdf" target="_blank" rel="noopener">CV</a>
         <a href="/Contact">Contact</a>
       </nav>
+
+      <!-- Mobile burger -->
+      <div class="burger-wrap" aria-hidden="true">
+        <button class="burger" id="burger" aria-expanded="false" aria-controls="mobilePanel">☰ <span>Menu</span></button>
+      </div>
     </div>
   </header>
 
+  <!-- mobile panel -->
+  <div class="mobile-panel" id="mobilePanel" aria-hidden="true">
+    <a href="#" id="mobileProjectsToggle">Publications ▾</a>
+    <div class="mobile-submenu" id="projectsSub">
+      <a href="/LCA">LCA</a>
+      <a href="/MaterialScience">Material Science</a>
+    </div>
+
+    <a href="/Talks">Talks</a>
+    <a href="/Leadership">Leadership</a>
+    <a href="CV_Shah_Research.pdf" target="_blank" rel="noopener">CV</a>
+    <a href="/Contact">Contact</a>
+  </div>
+
   <main>
     <div class="contact-card" role="region" aria-label="Contact card">
-      <!-- local uploaded photo path (use exact uploaded file) -->
+      <!-- exact uploaded path for the photo (hosting will translate this when deployed) -->
       <img class="photo" src="photo.png" alt="Yash Shah photo">
       <h2>Yash Shah</h2>
       <p>Raleigh–Durham Area, North Carolina</p>
@@ -190,23 +249,68 @@
     // clickable brand -> home
     document.getElementById('brand').addEventListener('click',()=>window.location.href='/');
 
-    // dropdown hover + click behavior (same as other pages)
     (function(){
-      const DROPD_DELAY=200;
-      const drop=document.querySelector('[data-dropdown]');
-      if(!drop) return;
-      let hideTimer;
-      const trigger=drop.querySelector('a');
-      const menu=drop.querySelector('.dropdown-content');
-      function show(){ clearTimeout(hideTimer); drop.classList.add('open'); }
-      function hide(){ drop.classList.remove('open'); }
-      drop.addEventListener('mouseenter', show);
-      drop.addEventListener('mouseleave', ()=> hideTimer = setTimeout(hide, DROPD_DELAY) );
-      if(menu){
-        menu.addEventListener('mouseenter', show);
-        menu.addEventListener('mouseleave', ()=> hideTimer = setTimeout(hide, DROPD_DELAY) );
+      const DROPD_DELAY = 200;
+      // desktop dropdown hover + click
+      document.querySelectorAll('[data-dropdown]').forEach(drop=>{
+        let hideTimer;
+        const trigger = drop.querySelector('a');
+        const menu = drop.querySelector('.dropdown-content');
+        function show(){ clearTimeout(hideTimer); drop.classList.add('open'); trigger.setAttribute('aria-expanded','true'); }
+        function hide(){ drop.classList.remove('open'); trigger.setAttribute('aria-expanded','false'); }
+        drop.addEventListener('mouseenter', show);
+        drop.addEventListener('mouseleave', ()=> hideTimer = setTimeout(hide, DROPD_DELAY) );
+        if(menu){
+          menu.addEventListener('mouseenter', show);
+          menu.addEventListener('mouseleave', ()=> hideTimer = setTimeout(hide, DROPD_DELAY) );
+        }
+        trigger.addEventListener('click', (e)=>{ e.preventDefault(); drop.classList.toggle('open'); });
+      });
+
+      // mobile menu logic
+      const burger = document.getElementById('burger');
+      const mobilePanel = document.getElementById('mobilePanel');
+      const projectsToggle = document.getElementById('mobileProjectsToggle');
+      const projectsSub = document.getElementById('projectsSub');
+
+      if(burger){
+        burger.addEventListener('click', (e) => {
+          e.stopPropagation();
+          const open = mobilePanel.style.display === 'block';
+          mobilePanel.style.display = open ? 'none' : 'block';
+          mobilePanel.setAttribute('aria-hidden', open ? 'true' : 'false');
+          burger.setAttribute('aria-expanded', !open);
+        });
       }
-      trigger.addEventListener('click', (e)=>{ e.preventDefault(); drop.classList.toggle('open'); });
+      if(projectsToggle){
+        projectsToggle.addEventListener('click', (e) => {
+          e.preventDefault();
+          const open = projectsSub.style.display === 'block';
+          projectsSub.style.display = open ? 'none' : 'block';
+        });
+      }
+
+      // close when clicking outside (mobile)
+      document.addEventListener('click', (e) => {
+        if (window.innerWidth > 900) return;
+        const inside = e.target.closest('.mobile-panel') || e.target.closest('.burger');
+        if (!inside) {
+          mobilePanel.style.display = 'none';
+          mobilePanel.setAttribute('aria-hidden','true');
+          if(burger) burger.setAttribute('aria-expanded','false');
+          projectsSub.style.display = 'none';
+        }
+      });
+
+      // reset on resize
+      window.addEventListener('resize', () => {
+        if (window.innerWidth > 900) {
+          mobilePanel.style.display = 'none';
+          mobilePanel.setAttribute('aria-hidden','true');
+          if(burger) burger.setAttribute('aria-expanded','false');
+          projectsSub.style.display = 'none';
+        }
+      });
     })();
   </script>
 </body>
