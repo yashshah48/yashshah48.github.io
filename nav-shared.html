@@ -1,0 +1,113 @@
+<!-- nav-shared.html -->
+<style>
+  /* Universal mobile nav CSS */
+  .burger-wrap{
+    display:none;
+    width:100%;
+    justify-content:center;
+    margin-top:6px;
+  }
+  .burger{
+    background:transparent;border:0;font-size:16px;cursor:pointer;
+    padding:8px 12px;color:var(--muted,#444);
+    display:flex;align-items:center;gap:8px;font-weight:700;
+  }
+
+  .mobile-panel{
+    display:none;
+    position:fixed;
+    top:66px;right:16px;left:16px;
+    background:#fff;
+    border:1px solid #e6e6e6;
+    border-radius:8px;
+    box-shadow:0 12px 30px rgba(0,0,0,0.12);
+    z-index:200;
+    max-height:70vh;
+    overflow:auto;
+    padding:8px;
+  }
+  .mobile-panel a{
+    display:block;padding:10px 12px;color:var(--muted,#444);
+    text-decoration:none;font-weight:600;border-bottom:1px solid #f2f2f2;
+  }
+  .mobile-panel a:hover{color:var(--duke-navy,#0033a0);}
+  .mobile-panel a:last-child{border-bottom:0;}
+  .mobile-submenu{display:none;padding-left:12px;background:#fafafa;}
+  .mobile-submenu a{font-weight:500;padding:8px 12px;display:block;color:var(--muted,#444);}
+
+  @media (max-width:900px){
+    nav.nav{display:none !important;}
+    .burger-wrap{display:flex !important;}
+  }
+</style>
+
+<!-- centered burger -->
+<div class="burger-wrap" aria-hidden="true">
+  <button class="burger" id="burger" aria-expanded="false" aria-controls="mobilePanel">
+    ☰ <span>Menu</span>
+  </button>
+</div>
+
+<!-- mobile panel -->
+<div class="mobile-panel" id="mobilePanel" aria-hidden="true">
+  <a href="#" id="mobileProjectsToggle">Publications ▾</a>
+  <div class="mobile-submenu" id="projectsSub">
+    <a href="/LCA">LCA</a>
+    <a href="/MaterialScience">Material Science</a>
+  </div>
+
+  <a href="/Talks">Talks</a>
+  <a href="/Leadership">Leadership</a>
+  <a href="/CV_Shah_Research.pdf" target="_blank" rel="noopener">CV</a>
+  <a href="/Contact">Contact</a>
+</div>
+
+<script>
+/* shared nav behavior */
+(function(){
+  const burger = document.getElementById('burger');
+  const mobilePanel = document.getElementById('mobilePanel');
+  const projectsToggle = document.getElementById('mobileProjectsToggle');
+  const projectsSub = document.getElementById('projectsSub');
+
+  if(burger && mobilePanel){
+    burger.addEventListener('click',(e)=>{
+      e.stopPropagation();
+      const open = mobilePanel.style.display==='block';
+      mobilePanel.style.display=open?'none':'block';
+      mobilePanel.setAttribute('aria-hidden',open?'true':'false');
+      burger.setAttribute('aria-expanded',!open);
+    });
+  }
+
+  if(projectsToggle && projectsSub){
+    projectsToggle.addEventListener('click',(e)=>{
+      e.preventDefault();
+      const open=projectsSub.style.display==='block';
+      projectsSub.style.display=open?'none':'block';
+      projectsToggle.setAttribute('aria-expanded',!open);
+    });
+  }
+
+  document.addEventListener('click',(e)=>{
+    const inside=e.target.closest('.mobile-panel')||e.target.closest('.burger');
+    if(!inside && window.innerWidth<=900){
+      mobilePanel.style.display='none';
+      mobilePanel.setAttribute('aria-hidden','true');
+      burger.setAttribute('aria-expanded','false');
+      projectsSub.style.display='none';
+      projectsToggle.setAttribute('aria-expanded','false');
+    }
+  });
+
+  window.addEventListener('resize',()=>{
+    if(window.innerWidth>900){
+      mobilePanel.style.display='none';
+      mobilePanel.setAttribute('aria-hidden','true');
+      burger.setAttribute('aria-expanded','false');
+      projectsSub.style.display='none';
+      projectsToggle.setAttribute('aria-expanded','false');
+    }
+  });
+})();
+</script>
