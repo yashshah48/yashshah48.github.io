@@ -1,0 +1,225 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Travel — Interactive World Map</title>
+  <!-- Leaflet CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha512-sA+e2p3k6b4nF1qk2Xb9dQxg6c0QG2b1k1Gk8e0Q5XJH1z9K2zqR5vJc3Q0cJz6Y9o2Qm1b2c3d4e5f6g7h8==" crossorigin=""/>
+  <style>
+    :root{ --bg:#f7fafc; --panel:#ffffff; --accent:#1e88e5; }
+    html,body,#map{height:100%;margin:0;padding:0}
+    body{font-family:Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial; background:var(--bg); color:#111}
+    .app{display:grid;grid-template-columns:360px 1fr;gap:12px;height:100vh;padding:12px;box-sizing:border-box}
+    .panel{background:var(--panel);border-radius:10px;padding:12px;box-shadow:0 6px 18px rgba(22,28,36,0.08);overflow:auto}
+    header{display:flex;align-items:center;gap:10px}
+    header h1{font-size:18px;margin:0}
+    .controls{margin-top:10px;display:flex;gap:8px;flex-wrap:wrap}
+    input[type="search"]{flex:1;padding:8px;border-radius:8px;border:1px solid #e6eef8}
+    button{padding:8px 10px;border-radius:8px;border:0;background:var(--accent);color:white;cursor:pointer}
+    #map{border-radius:10px}
+    .list{margin-top:12px}
+    .list .item{padding:8px;border-radius:8px;border:1px solid #eef3f8;margin-bottom:8px;background:#fbfcfe}
+    footer{font-size:12px;color:#556; margin-top:12px}
+    @media (max-width:900px){.app{grid-template-columns:1fr;grid-template-rows:320px 1fr}}
+  </style>
+</head>
+<body>
+  <div class="app">
+    <aside class="panel">
+      <header>
+        <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/Globe_icon.svg" alt="globe" width="28" height="28">
+        <div>
+          <h1>Travel — Interactive Map</h1>
+          <div style="font-size:12px;color:#567">Explore countries — click, search, and save places.</div>
+        </div>
+      </header>
+
+      <div class="controls">
+        <input id="search" type="search" placeholder="Search for a country (e.g. France)" />
+        <button id="btnReset">Reset View</button>
+        <button id="btnClear">Clear saved</button>
+      </div>
+
+      <div class="list">
+        <h3 style="margin-top:12px">Saved places</h3>
+        <div id="savedList">(click a country on the map)</div>
+      </div>
+
+      <footer>
+        <div>Data sources: OpenStreetMap tiles, GeoJSON world countries.</div>
+        <div style="margin-top:6px">Tip: click a country to see details and add it to saved list.</div>
+      </footer>
+    </aside>
+
+    <main id="map" class="panel"></main>
+  </div>
+
+  <!-- Leaflet JS -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha512-kZfX6o0nq+o8Yb2F1qk2Xb9dQxg6c0QG2b1k1Gk8e0Q5XJH1z9K2zqR5vJc3Q0cJz6Y9o2Qm1b2c3d4e5f6g7h8==" crossorigin=""></script>
+  <script>
+    // Travel.html — Interactive world map
+    // Uses Leaflet and a GeoJSON world countries file (fetched at runtime).
+
+    const map = L.map('map', {zoomControl: true}).setView([20, 0], 2);
+
+    // Tile layer (OpenStreetMap)
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      maxZoom: 19,
+      attribution: '&copy; OpenStreetMap contributors'
+    }).addTo(map);
+
+    // Layers & state
+    const countriesLayer = L.geoJSON(null, {
+      style: defaultStyle,
+      onEachFeature: onEachCountry
+    }).addTo(map);
+
+    const saved = new Map(); // ISO_A3 -> {name, bounds, popup}
+
+    // Utility: default style
+    function defaultStyle() {
+      return {color: '#888', weight: 1, fillColor: '#f4f7fb', fillOpacity: 1}
+    }
+    function highlightStyle() { return {color:'#1e88e5', weight:2, fillOpacity:0.9} }
+
+    // Fetch countries GeoJSON (CORS-enabled raw URL)
+    const countriesGeoJSONURL = 'https://raw.githubusercontent.com/datasets/geo-countries/master/data/countries.geojson';
+
+    fetch(countriesGeoJSONURL)
+      .then(r => {
+        if(!r.ok) throw new Error('Failed to load countries GeoJSON: '+r.status);
+        return r.json();
+      })
+      .then(geojson => {
+        countriesLayer.addData(geojson);
+        // build a small search index
+        window._countryIndex = geojson.features.map(f => ({
+          name: (f.properties.ADMIN || f.properties.NAME || 'Unknown'),
+          iso_a3: (f.properties.ISO_A3 || f.properties.ISO_A3E || f.properties.ADM0_A3 || ''),
+          bounds: L.geoJSON(f).getBounds()
+        }));
+      })
+      .catch(err => {
+        console.error(err);
+        alert('Could not load world map data. See console for details.');
+      });
+
+    function onEachCountry(feature, layer){
+      const name = feature.properties.ADMIN || feature.properties.NAME || 'Unknown';
+      layer.bindTooltip(name, {sticky:true});
+
+      layer.on({
+        mouseover(e){
+          e.target.setStyle(highlightStyle());
+        },
+        mouseout(e){
+          countriesLayer.resetStyle(e.target);
+        },
+        click(e){
+          const props = feature.properties || {};
+          const iso = props.ISO_A3 || props.ISO_A3E || props.ADM0_A3 || '';
+
+          const popupContent = `<div style="min-width:180px"><strong>${escapeHtml(name)}</strong><br/>`+
+            `<small>ISO A3: ${escapeHtml(iso)}</small><br/>`+
+            `<div style="margin-top:8px"><button id='save-${iso}' data-name='${escapeHtml(name)}' class='save-btn'>Save place</button></div>`+
+            `</div>`;
+
+          layer.bindPopup(popupContent).openPopup();
+
+          // attach click listener on popup button after it's added to DOM
+          setTimeout(()=>{
+            const btn = document.getElementById('save-'+iso);
+            if(btn) btn.onclick = () => savePlace(iso, name, layer.getBounds());
+          }, 50);
+
+          // try to fetch small country details from restcountries (best-effort)
+          // this is optional and may fail due to naming mismatches; we do not block on it.
+          fetchCountryDetails(name, layer);
+        }
+      });
+    }
+
+    // Save selected place to sidebar
+    function savePlace(iso, name, bounds){
+      if(!iso) iso = name;
+      if(saved.has(iso)) return; // avoid duplicates
+      saved.set(iso, {name, bounds});
+      renderSavedList();
+    }
+
+    function renderSavedList(){
+      const container = document.getElementById('savedList');
+      container.innerHTML = '';
+      if(saved.size===0) { container.innerHTML = '<div style="color:#667">No saved places</div>'; return }
+      for(const [iso,obj] of saved.entries()){
+        const el = document.createElement('div'); el.className='item';
+        el.innerHTML = `<strong>${escapeHtml(obj.name)}</strong><div style="font-size:12px;margin-top:6px">`+
+          `<button data-iso='${escapeHtml(iso)}' class='fly'>Fly to</button> `+
+          `<button data-iso='${escapeHtml(iso)}' class='remove'>Remove</button></div>`;
+        container.appendChild(el);
+      }
+      // attach events
+      container.querySelectorAll('button.fly').forEach(b=>b.onclick = e=>{
+        const iso = e.target.dataset.iso; const item = saved.get(iso); if(!item) return;
+        map.fitBounds(item.bounds, {padding:[20,20]});
+      });
+      container.querySelectorAll('button.remove').forEach(b=>b.onclick = e=>{
+        const iso = e.target.dataset.iso; saved.delete(iso); renderSavedList();
+      });
+    }
+
+    // Reset & Clear buttons
+    document.getElementById('btnReset').onclick = ()=> map.setView([20,0],2);
+    document.getElementById('btnClear').onclick = ()=> { saved.clear(); renderSavedList(); }
+
+    // Simple search box: matches country name and zooms to bounds
+    document.getElementById('search').addEventListener('keydown', async (ev)=>{
+      if(ev.key !== 'Enter') return;
+      const q = ev.target.value.trim().toLowerCase();
+      if(!q) return;
+      const idx = (window._countryIndex||[]).find(c => c.name.toLowerCase() === q || c.name.toLowerCase().includes(q));
+      if(idx){ map.fitBounds(idx.bounds, {padding:[20,20]}); }
+      else { alert('No exact match found — try a different spelling (e.g. "United Kingdom" instead of "UK").'); }
+    });
+
+    // Fetch country details (best-effort) from restcountries; used to show extra info in popup
+    function fetchCountryDetails(name, layer){
+      // don't block UI on this; it's optional
+      const url = `https://restcountries.com/v3.1/name/${encodeURIComponent(name)}?fullText=true`;
+      fetch(url).then(r=>r.json()).then(data=>{
+        if(!Array.isArray(data)) return;
+        const c = data[0];
+        const population = c.population ? numberWithCommas(c.population) : '—';
+        const capital = (c.capital && c.capital[0]) ? c.capital[0] : '—';
+        const region = c.region || '—';
+        // update an open popup if it exists
+        const open = layer.getPopup();
+        if(open && open.isOpen()){
+          const base = `<div style="min-width:200px"><strong>${escapeHtml(name)}</strong><br/>`+
+            `<small>${escapeHtml(region)} — capital: ${escapeHtml(capital)}</small><br/>`+
+            `<small>population: ${escapeHtml(population)}</small><div style="margin-top:8px"><button id='save-${escapeHtml(layer.feature && (layer.feature.properties && (layer.feature.properties.ISO_A3||layer.feature.properties.ADM0_A3)) || name)}' class='save-btn'>Save place</button></div></div>`;
+          layer.setPopupContent(base);
+          // rebind button
+          setTimeout(()=>{
+            const btn = open.getElement().querySelector('.save-btn');
+            if(btn) btn.onclick = ()=> savePlace(layer.feature && (layer.feature.properties && (layer.feature.properties.ISO_A3||layer.feature.properties.ADM0_A3)) || name, name, layer.getBounds());
+          },50);
+        }
+      }).catch(()=>{/* ignore errors silently */});
+    }
+
+    // Helpers
+    function escapeHtml(s){ return String(s||'').replace(/[&<>"']/g, function(m){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":"&#39;"}[m];}); }
+    function numberWithCommas(x){ return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ','); }
+
+    // Small accessibility: keyboard focus outline
+    document.addEventListener('keydown', (e)=>{
+      if(e.key === 'Escape') map.closePopup();
+    });
+
+    // Expose small API for integration/tests
+    window._travelMap = { map, countriesLayer, saved };
+  </script>
+</body>
+</html>
