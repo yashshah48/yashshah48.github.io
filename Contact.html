@@ -254,8 +254,18 @@
         let hideTimer;
         const trigger = drop.querySelector('a');
         const menu = drop.querySelector('.dropdown-content');
-        function show(){ clearTimeout(hideTimer); drop.classList.add('open'); trigger.setAttribute('aria-expanded','true'); }
-        function hide(){ drop.classList.remove('open'); trigger.setAttribute('aria-expanded','false'); }
+ function show(){
+  clearTimeout(hideTimer);
+  drop.classList.add('open');
+  trigger.setAttribute('aria-expanded','true');
+  if(menu) menu.style.display = 'block';
+}
+
+function hide(){
+  drop.classList.remove('open');
+  trigger.setAttribute('aria-expanded','false');
+  if(menu) menu.style.display = '';
+}
         drop.addEventListener('mouseenter', show);
         drop.addEventListener('mouseleave', ()=> hideTimer = setTimeout(hide, DROPD_DELAY) );
         if(menu){
